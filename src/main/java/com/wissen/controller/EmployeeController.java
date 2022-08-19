@@ -1,5 +1,6 @@
 package com.wissen.controller;
 
+import com.wissen.dto.EmployeeDTO;
 import com.wissen.entity.Employee;
 import com.wissen.helper.ExcelHelper;
 import com.wissen.service.impl.ServiceImpl;
@@ -39,7 +40,7 @@ public class EmployeeController {
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
     @GetMapping
-    @ApiOperation("Fetches all empl;oyees")
+    @ApiOperation("Fetches all employees")
     public ResponseEntity<List> read(){
         return new ResponseEntity<>(service.readEmployee(), HttpStatus.OK);
     }

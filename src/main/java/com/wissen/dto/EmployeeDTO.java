@@ -1,20 +1,15 @@
-package com.wissen.entity;
+package com.wissen.dto;
 
-import com.wissen.dto.EmployeeDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.wissen.entity.AccountDetails;
+import com.wissen.entity.Client;
+import com.wissen.entity.Employee;
+import lombok.*;
+
 import javax.persistence.*;
 
-@Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class EmployeeDTO {
     int id;
     String firstName;
     String pan;
@@ -26,13 +21,9 @@ public class Employee {
     boolean active;
     int role;
     int designation;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
     AccountDetails accountDetails;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="client_id")
     Client client;
-    public Employee(EmployeeDTO employee){
+    public EmployeeDTO(Employee employee){
         this.id = employee.getId();
         this.firstName = employee.getFirstName();
         this.pan = employee.getPan();
