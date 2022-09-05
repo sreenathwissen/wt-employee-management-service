@@ -27,13 +27,13 @@ public class EmployeeApi2Application {
 				.apis(RequestHandlerSelectors.basePackage("com.wissen"))
 				.build()
 				.apiInfo(new ApiInfo(
-						"Employee API",
-						"API for employee database",
+						"Wissen Technology",
+						"Employee Details",
 						"1.0",
-						"Free to use",
-						new Contact("Mohammad Saad", "http://localhost:8080", "test@gmail.com"),
-						"API Liscence",
-						"http://localhost:8080"
+						"Licence as per Wissen Technology",
+						new Contact("Wissen Technology", "https://www.wissen.com/", "test@wissen.com"),
+						"API Licence",
+						"https://www.wissen.com/privacy-policy-2/"
 				));
 	}
 }

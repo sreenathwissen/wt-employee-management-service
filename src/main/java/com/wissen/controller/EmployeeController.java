@@ -1,9 +1,8 @@
 package com.wissen.controller;
 
-import com.wissen.dto.EmployeeDTO;
 import com.wissen.entity.Employee;
 import com.wissen.helper.ExcelHelper;
-import com.wissen.service.impl.ServiceImpl;
+import com.wissen.service.impl.EmployeeServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +17,10 @@ import java.util.List;
 @RequestMapping("/api/employee")
 public class EmployeeController {
     @Autowired
-    ServiceImpl service;
+    EmployeeServiceImpl service;
     @PostMapping
     @ApiOperation("Creates new Employee")
-    public ResponseEntity<String> create(@RequestBody Employee employee) throws IOException {
+    public ResponseEntity<String> create(@RequestBody Employee employee) {
         return new ResponseEntity<>(service.createEmployee(employee), HttpStatus.OK);
     }
     @PostMapping("/upload")
