@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public String createEmployeeFromExcel(MultipartFile file) throws IOException {
-        List<Employee> employees = ExcelHelper.excelToTutorials(file.getInputStream());
+        List<Employee> employees = null;//ExcelHelper.excelToTutorials(file.getInputStream());
         for (Employee employee : employees) {
             Client client = clientRepository.findByCname(employee.getClient().getCname());
             if (client != null) employee.setClient(client);
