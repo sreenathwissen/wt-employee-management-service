@@ -12,5 +12,6 @@ public class Email {
     private String from;
     private String subject;
     private String template;
+    private String cc;
     Map<String, Object> properties = new HashMap<>();
 }

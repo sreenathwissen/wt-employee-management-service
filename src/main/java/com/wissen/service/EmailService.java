@@ -28,11 +28,11 @@ public class EmailService {
         context.setVariables(email.getProperties());
         helper.setFrom(email.getFrom());
         helper.setTo(email.getTo());
+        helper.setCc(email.getCc());
         helper.setSubject(email.getSubject());
         String html = templateEngine.process(email.getTemplate(), context);
         helper.setText(html, true);
-
-//        log.info("Sending email: {} with html body: {}", email, html);
+        log.info("Sending email: {} with html body: {}", email, html);
         emailSender.send(message);
     }
 }
