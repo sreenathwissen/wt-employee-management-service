@@ -22,7 +22,4 @@ public class Address {
     String city;
     String country;
     String state;
-    @OneToOne(mappedBy = "accountAddress",  cascade = CascadeType.ALL)
-    @JsonBackReference
-    AccountDetails accountDetails;
 }

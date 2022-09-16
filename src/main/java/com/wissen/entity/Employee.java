@@ -26,9 +26,6 @@ public class Employee {
     boolean active;
     int role;
     int designation;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    AccountDetails accountDetails;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="client_id")
     Client client;
@@ -44,7 +41,6 @@ public class Employee {
         this.active = employee.isActive();
         this.role = employee.getRole();
         this.designation = employee.getDesignation();
-        this.accountDetails = employee.getAccountDetails();
         this.client = employee.getClient();
     }
 }
