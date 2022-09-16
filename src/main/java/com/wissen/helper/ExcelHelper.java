@@ -1,6 +1,5 @@
 package com.wissen.helper;
 
-import com.wissen.entity.AccountDetails;
 import com.wissen.entity.Address;
 import com.wissen.entity.Client;
 import com.wissen.entity.Employee;
@@ -10,11 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 public class ExcelHelper {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -38,7 +35,6 @@ public class ExcelHelper {
                 }
                 Iterator<Cell> cellsInRow = currentRow.iterator();
                 Employee employee1 = new Employee();
-                AccountDetails accountDetails = new AccountDetails();
                 Address address = new Address();
                 Client client = new Client();
                 int cellIdx = 0;
@@ -52,27 +48,22 @@ public class ExcelHelper {
                         case 4 -> employee1.setYearExperience(currentCell.getNumericCellValue());
                         case 5 -> employee1.setManager(currentCell.getStringCellValue());
                         case 6 -> employee1.setRole((int) currentCell.getNumericCellValue());
-                        case 7 -> accountDetails.setAccnumber(currentCell.getStringCellValue());
-                        case 8 -> accountDetails.setBank(currentCell.getStringCellValue());
-                        case 9 -> accountDetails.setIFSC(currentCell.getStringCellValue());
-                        case 10 -> address.setFlatNumber(currentCell.getStringCellValue());
-                        case 11 -> address.setCity(currentCell.getStringCellValue());
-                        case 12 -> address.setState(currentCell.getStringCellValue());
-                        case 13 -> address.setPincode((long)currentCell.getNumericCellValue());
-                        case 14 -> address.setCountry(currentCell.getStringCellValue());
-                        case 15 -> client.setCname(currentCell.getStringCellValue());
-                        case 16 -> client.setLocation(currentCell.getStringCellValue());
-                        case 17 -> client.setRemoteManager(currentCell.getStringCellValue());
-                        case 18 -> client.setHiringManager(currentCell.getStringCellValue());
-                        case 19 -> employee1.setDesignation((int) currentCell.getNumericCellValue());
-                        case 20 -> employee1.setEmail(currentCell.getStringCellValue());
+                        case 7 -> address.setFlatNumber(currentCell.getStringCellValue());
+                        case 8 -> address.setCity(currentCell.getStringCellValue());
+                        case 9 -> address.setState(currentCell.getStringCellValue());
+                        case 10 -> address.setPincode((long)currentCell.getNumericCellValue());
+                        case 11 -> address.setCountry(currentCell.getStringCellValue());
+                        case 12 -> client.setCname(currentCell.getStringCellValue());
+                        case 13 -> client.setLocation(currentCell.getStringCellValue());
+                        case 14 -> client.setRemoteManager(currentCell.getStringCellValue());
+                        case 15 -> client.setHiringManager(currentCell.getStringCellValue());
+                        case 16 -> employee1.setDesignation((int) currentCell.getNumericCellValue());
+                        case 17 -> employee1.setEmail(currentCell.getStringCellValue());
                         default -> {
                         }
                     }
                     cellIdx++;
                 }
-                accountDetails.setAccountAddress(address);
-                employee1.setAccountDetails(accountDetails);
                 employee1.setClient(client);
                 employee1.setActive(true);
                 employees.add(employee1);
