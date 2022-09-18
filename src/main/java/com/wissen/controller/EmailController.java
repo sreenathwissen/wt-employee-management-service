@@ -3,9 +3,11 @@ package com.wissen.controller;
 import com.wissen.model.Email;
 import com.wissen.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/email")
@@ -27,7 +29,6 @@ public class EmailController {
         email.setSubject("Welcome Email");
         email.setTemplate("EMAIL_TEMPLATE.html");
         email.getProperties().put("name", name);
-
         email.setProperties(email.getProperties());
         emailService.sendHtmlMessage(email);
     }

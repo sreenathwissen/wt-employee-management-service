@@ -1,11 +1,8 @@
 package com.wissen.dto;
 
-import com.wissen.entity.AccountDetails;
 import com.wissen.entity.Client;
 import com.wissen.entity.Employee;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +18,6 @@ public class EmployeeDTO {
     boolean active;
     int role;
     int designation;
-    AccountDetails accountDetails;
     Client client;
     public EmployeeDTO(Employee employee){
         this.id = employee.getId();
@@ -35,7 +31,6 @@ public class EmployeeDTO {
         this.active = employee.isActive();
         this.role = employee.getRole();
         this.designation = employee.getDesignation();
-        this.accountDetails = employee.getAccountDetails();
         this.client = employee.getClient();
     }
 }

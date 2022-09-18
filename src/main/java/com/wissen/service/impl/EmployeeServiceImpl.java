@@ -34,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Client client = clientRepository.findByCname(employee.getClient().getCname());
         if (client != null) employee.setClient(client);
         employeeRepository.save(employee);
-        EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getAccountDetails(), employee.getClient());
+        EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getClient());
         employeeAuditRepository.save(employeeAudit);
         return "Employee added successfully";
     }
@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Client client = clientRepository.findByCname(employee.getClient().getCname());
             if (client != null) employee.setClient(client);
             employeeRepository.save(employee);
-            EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getAccountDetails(), employee.getClient());
+            EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getClient());
             employeeAuditRepository.save(employeeAudit);
         }
         return "Employees added successfully from file";
@@ -112,11 +112,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeAudit.setDesignation(employee.getDesignation());
             needUpdate = true;
         } else employeeAudit.setDesignation(employee1.getDesignation());
-        if (!String.valueOf(employee.getAccountDetails()).equals("null")) {
-            employee1.setAccountDetails(employee.getAccountDetails());
-            employeeAudit.setAccountDetails(employee.getAccountDetails());
-            needUpdate = true;
-        } else employeeAudit.setAccountDetails(employee1.getAccountDetails());
         if (!String.valueOf(employee.getClient()).equals("null")) {
             employee1.setClient(employee.getClient());
             employeeAudit.setClient(employee.getClient());
@@ -139,7 +134,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
         employee.setActive(false);
         employeeRepository.save(employee);
-        EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getAccountDetails(), employee.getClient());
+        EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getClient());
         employeeAuditRepository.save(employeeAudit);
         return "Employee with given id is deleted";
     }
