@@ -1,14 +1,12 @@
 package com.wissen.service.impl;
 
 
-import com.wissen.entity.Client;
+import com.wissen.entity.Department;
+import com.wissen.entity.Designation;
 import com.wissen.entity.Employee;
-import com.wissen.entity.EmployeeAudit;
+import com.wissen.entity.Role;
 import com.wissen.exception.EmployeeNotFoundException;
-import com.wissen.helper.ExcelHelper;
-import com.wissen.repository.ClientRepository;
-import com.wissen.repository.EmployeeAuditRepository;
-import com.wissen.repository.EmployeeRepository;
+import com.wissen.repository.*;
 import com.wissen.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,28 +23,36 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
-    EmployeeAuditRepository employeeAuditRepository;
-    @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    DesignationRepository designationRepository;
+    @Autowired
+    DepartmentRepository departmentRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     public String createEmployee(Employee employee) {
-        employee.setActive(true);
-        Client client = clientRepository.findByCname(employee.getClient().getCname());
-        if (client != null) employee.setClient(client);
+        employee.setStatus("active");
+        Designation designation = designationRepository.findByDesgName(employee.getDesignation().getDesgName());
+        if(designation != null) employee.setDesignation(designation);
+        Department department = departmentRepository.findByDepName(employee.getDepartment().getDepName());
+        if(department != null) employee.setDepartment(department);
+        Role role = roleRepository.findByRoleName(employee.getRole().getRoleName());
+        if(role != null) employee.setRole(role);
         employeeRepository.save(employee);
-        EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getClient());
-        employeeAuditRepository.save(employeeAudit);
         return "Employee added successfully";
     }
 
     public String createEmployeeFromExcel(MultipartFile file) throws IOException {
         List<Employee> employees = null;//ExcelHelper.excelToTutorials(file.getInputStream());
         for (Employee employee : employees) {
-            Client client = clientRepository.findByCname(employee.getClient().getCname());
-            if (client != null) employee.setClient(client);
+            Designation designation = designationRepository.findByDesgName(employee.getDesignation().getDesgName());
+            if(designation != null) employee.setDesignation(designation);
+            Department department = departmentRepository.findByDepName(employee.getDepartment().getDepName());
+            if(department != null) employee.setDepartment(department);
+            Role role = roleRepository.findByRoleName(employee.getRole().getRoleName());
+            if(role != null) employee.setRole(role);
             employeeRepository.save(employee);
-            EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getClient());
-            employeeAuditRepository.save(employeeAudit);
         }
         return "Employees added successfully from file";
     }
@@ -65,66 +71,97 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public String updateEmployee(Employee employee, int id) {
         Employee employee1 = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
-        EmployeeAudit employeeAudit = new EmployeeAudit();
         boolean needUpdate = false;
         if (StringUtils.hasLength(employee.getFirstName())) {
             employee1.setFirstName(employee.getFirstName());
-            employeeAudit.setFirstName(employee.getFirstName());
             needUpdate = true;
-        } else employeeAudit.setFirstName(employee1.getFirstName());
-        if (StringUtils.hasLength(employee.getPan())) {
-            employee1.setPan(employee.getPan());
-            employeeAudit.setPan(employee.getPan());
+        }
+        if (StringUtils.hasLength(employee.getGender())) {
+            employee1.setGender(employee.getGender());
             needUpdate = true;
-        } else employeeAudit.setPan(employee1.getPan());
+        }
+        if (StringUtils.hasLength((CharSequence) employee.getDob())) {
+            employee1.setDob(employee.getDob());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(employee.getBloodGroup())) {
+            employee1.setBloodGroup(employee.getBloodGroup());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(String.valueOf(employee.getPrimaryPhoneNumber()))) {
+            employee1.setPrimaryPhoneNumber(employee.getPrimaryPhoneNumber());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(String.valueOf(employee.getSecondaryPhoneNumber()))) {
+            employee1.setSecondaryPhoneNumber(employee.getSecondaryPhoneNumber());
+            needUpdate = true;
+        }
         if (StringUtils.hasLength(employee.getLastName())) {
             employee1.setLastName(employee.getLastName());
-            employeeAudit.setLastName(employee.getLastName());
             needUpdate = true;
-        } else employeeAudit.setLastName(employee1.getLastName());
+        }
+        if (StringUtils.hasLength(String.valueOf(employee.getWorkPhone()))) {
+            employee1.setWorkPhone(employee.getWorkPhone());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(String.valueOf(employee.getPrimaryEmergencyContactNumber()))) {
+            employee1.setPrimaryEmergencyContactNumber(employee.getPrimaryEmergencyContactNumber());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(String.valueOf(employee.getSecondaryEmergencyContactNumber()))) {
+            employee1.setSecondaryEmergencyContactNumber(employee.getSecondaryEmergencyContactNumber());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength((CharSequence) employee.getMaritalStatusDate())) {
+            employee1.setMaritalStatusDate(employee.getMaritalStatusDate());
+            needUpdate = true;
+        }
         if (StringUtils.hasLength(employee.getEmail())) {
             employee1.setEmail(employee.getEmail());
-            employeeAudit.setEmail(employee.getEmail());
             needUpdate = true;
-        } else employeeAudit.setEmail(employee1.getEmail());
-        if (StringUtils.hasLength(employee.getDateOfJoining())) {
-            employee1.setDateOfJoining(employee.getDateOfJoining());
-            employeeAudit.setDateOfJoining(employee.getDateOfJoining());
+        }
+        if (StringUtils.hasLength((CharSequence) employee.getDoj())) {
+            employee1.setDoj(employee.getDoj());
             needUpdate = true;
-        } else employeeAudit.setDateOfJoining(employee1.getDateOfJoining());
-        if (!String.valueOf(employee.getYearExperience()).equals("null")) {
-            employee1.setYearExperience(employee.getYearExperience());
-            employeeAudit.setYearExperience(employee.getYearExperience());
+        }
+        if (StringUtils.hasLength(employee.getExpDoj())) {
+            employee1.setExpDoj(employee.getExpDoj());
             needUpdate = true;
-        } else employeeAudit.setYearExperience(employee1.getYearExperience());
+        }
+        if (StringUtils.hasLength((CharSequence) employee.getExitDate())) {
+            employee1.setExitDate(employee.getExitDate());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(employee.getType())) {
+            employee1.setType(employee.getType());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(employee.getJoiningLocation())) {
+            employee1.setJoiningLocation(employee.getJoiningLocation());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(employee.getStatus())) {
+            employee1.setStatus(employee.getStatus());
+            needUpdate = true;
+        }
         if (StringUtils.hasLength(employee.getManager())) {
             employee1.setManager(employee.getManager());
-            employeeAudit.setManager(employee.getManager());
             needUpdate = true;
-        } else employeeAudit.setManager(employee1.getManager());
+        }
         if (!String.valueOf(employee.getRole()).equals("null")) {
             employee1.setRole(employee.getRole());
-            employeeAudit.setRole(employee.getRole());
             needUpdate = true;
-        } else employeeAudit.setRole(employee1.getRole());
+        }
         if (!String.valueOf(employee.getDesignation()).equals("null")) {
             employee1.setDesignation(employee.getDesignation());
-            employeeAudit.setDesignation(employee.getDesignation());
             needUpdate = true;
-        } else employeeAudit.setDesignation(employee1.getDesignation());
-        if (!String.valueOf(employee.getClient()).equals("null")) {
-            employee1.setClient(employee.getClient());
-            employeeAudit.setClient(employee.getClient());
+        }
+        if (!String.valueOf(employee.getDepartment()).equals("null")) {
+            employee1.setDepartment(employee.getDepartment());
             needUpdate = true;
-        } else employeeAudit.setClient(employee1.getClient());
+        }
         if (needUpdate) {
-            Client client = clientRepository.findByCname(employee1.getClient().getCname());
-            if (client != null) employee1.setClient(client);
             employeeRepository.save(employee1);
-            employeeAudit.setActive(employee1.isActive());
-            client = clientRepository.findByCname(employeeAudit.getClient().getCname());
-            if (client != null) employeeAudit.setClient(client);
-            employeeAuditRepository.save(employeeAudit);
             return "Employee updated successfully";
         }
         return "Nothing to update";
@@ -132,10 +169,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public String deleteEmployee(int id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
-        employee.setActive(false);
+        employee.setStatus("inactive");
         employeeRepository.save(employee);
-        EmployeeAudit employeeAudit = new EmployeeAudit(employee.getId(), employee.getEmail(), employee.getFirstName(), employee.getPan(), employee.getLastName(), employee.getDateOfJoining(), employee.getYearExperience(), employee.getManager(), employee.isActive(), employee.getRole(), employee.getDesignation(), employee.getClient());
-        employeeAuditRepository.save(employeeAudit);
         return "Employee with given id is deleted";
     }
 }

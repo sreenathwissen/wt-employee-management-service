@@ -1,14 +1,14 @@
 package com.wissen.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,6 +18,8 @@ import javax.persistence.Id;
 public class Designation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int designation_id;
-    String designation_title;
+    @Column(name = "desg_id")
+    int desgId;
+    @Column(name = "desg_name")
+    String desgName;
 }

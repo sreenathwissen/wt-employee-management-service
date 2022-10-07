@@ -1,6 +1,5 @@
 package com.wissen.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +15,18 @@ import javax.persistence.*;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int address_id;
-    String flatNumber;
-    long pincode;
+    @Column(name = "addr_id")
+    int addrId;
+    @Column(name = "flat_no")
+    String flatNo;
+    String street;
+    String pincode;
+    @Column(name = "address_type")
+    String addressType;
     String city;
     String country;
     String state;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="emp_id")
+    Employee employee;
 }

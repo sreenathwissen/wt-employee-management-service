@@ -20,6 +20,8 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int role_id;
-    String role_title;
+    @Column(name = "role_id")
+    int roleId;
+    @Column(name = "role_name")
+    String roleName;
 }

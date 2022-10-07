@@ -1,36 +1,50 @@
 package com.wissen.dto;
 
-import com.wissen.entity.Client;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.wissen.entity.*;
 import com.wissen.entity.Employee;
 import lombok.*;
+import javax.persistence.*;
+import java.util.Date;
 
-@Data
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeDTO {
-    int id;
-    String firstName;
-    String pan;
-    String lastName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int emp_id;
+    String first_name;
+    String gender;
+    Date dob;
+    String blood_group;
+    long primary_phone_number;
+    long secondary_phone_number;
+    String last_name;
+    long work_phone;
+    long primary_emergency_contact_number;
+    long secondary_emergency_contact_number;
+    Date marital_status_date;
     String email;
-    String dateOfJoining;
-    double yearExperience;
+    Date doj;
+    String exp_doj;
+    Date exit_date;
+    String type;
+    String joining_location;
+    String status;
     String manager;
-    boolean active;
-    int role;
-    int designation;
-    Client client;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="desg_id")
+    Designation designation;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="dep_id")
+    Department department;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="role_id")
+    Role role;
     public EmployeeDTO(Employee employee){
-        this.id = employee.getId();
-        this.firstName = employee.getFirstName();
-        this.pan = employee.getPan();
-        this.lastName = employee.getLastName();
-        this.email = employee.getEmail();
-        this.dateOfJoining = employee.getDateOfJoining();
-        this.yearExperience = employee.getYearExperience();
-        this.manager = employee.getManager();
-        this.active = employee.isActive();
-        this.role = employee.getRole();
-        this.designation = employee.getDesignation();
-        this.client = employee.getClient();
+
     }
 }
