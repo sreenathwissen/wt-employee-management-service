@@ -48,11 +48,6 @@ public class EmployeeController {
     public ResponseEntity<Employee> read(@PathVariable int id){
         return new ResponseEntity<>(service.readEmployee(id), HttpStatus.OK);
     }
-    @GetMapping("/active/{active}")
-    @ApiOperation("Fetch employees with active state")
-    public ResponseEntity<List> read(@PathVariable boolean active){
-        return new ResponseEntity<>(service.readEmployee(active), HttpStatus.OK);
-    }
     @PatchMapping("/{id}")
     @ApiOperation("Update an employee with id")
     public ResponseEntity<String> update(@PathVariable int id, @RequestBody Employee employee){

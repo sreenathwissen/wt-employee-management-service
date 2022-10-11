@@ -37,15 +37,23 @@ public class Employee {
     long primaryEmergencyContactNumber;
     @Column(name = "secondary_emergency_contact_number")
     long secondaryEmergencyContactNumber;
+
     @Column(name = "marital_status_date")
     Date maritalStatusDate;
+
     String email;
+
     Date doj;
+
     @Column(name = "exp_doj")
     String expDoj;
+
     @Column(name = "exit_date")
     Date exitDate;
+
+    @Column(name = "type")
     String type;
+
     @Column(name = "joining_location")
     String joiningLocation;
     String status;

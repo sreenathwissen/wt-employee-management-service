@@ -20,9 +20,9 @@ public class Project {
     String projectName;
     @Column(name = "project_location")
     String projectLocation;
-    @Column(name = "")
-    String project_lead;
     @Column(name = "project_lead")
+    String project_lead;
+    @Column(name = "project_type")
     String projectType;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="client_id")

@@ -10,7 +10,6 @@ public interface EmployeeService {
     String createEmployeeFromExcel(MultipartFile file)  throws IOException;
     List<Employee> readEmployee();
     Employee readEmployee(int id);
-    List<Employee> readEmployee(boolean active);
     String updateEmployee(Employee employee, int id);
     String deleteEmployee(int id);
 }

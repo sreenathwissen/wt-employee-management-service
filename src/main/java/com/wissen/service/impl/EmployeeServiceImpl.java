@@ -65,10 +65,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public List<Employee> readEmployee(boolean active) {
-        return new ArrayList<>(employeeRepository.findAllByActive(active));
-    }
-
     public String updateEmployee(Employee employee, int id) {
         Employee employee1 = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
         boolean needUpdate = false;

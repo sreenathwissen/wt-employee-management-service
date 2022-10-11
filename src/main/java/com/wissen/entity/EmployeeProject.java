@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -15,16 +16,20 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "employee_project")
 public class EmployeeProject {
-    @Id
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="emp_id")
-    Employee employee;
-    @Id
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="project_id")
-    Project project;
+    @EmbeddedId
+    EmployeeProjectId employeeProjectId;
     @Column(name = "doj_onboarding")
     Date dojOnboarding;
     @Column(name = "dor_onboarding")
     Date dorOnboarding;
+}
+
+@Embeddable
+class EmployeeProjectId implements Serializable {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="emp_id")
+    Employee employee;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="project_id")
+    Project project;
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -15,13 +16,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "employee_skill")
 public class EmployeeSkill {
-    @Id
+    @EmbeddedId
+    EmployeeSkillId employeeSkillId;
+    Levels levels;
+}
+
+@Embeddable
+class EmployeeSkillId implements Serializable{
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="emp_id")
     Employee employee;
-    @Id
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="skill_id")
     Skill skill;
-    Levels levels;
 }
