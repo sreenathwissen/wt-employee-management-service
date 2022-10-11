@@ -20,6 +20,7 @@ public class Designation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "desg_id")
     int desgId;
+
     @Column(name = "desg_name")
     String desgName;
 }

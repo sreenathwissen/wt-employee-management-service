@@ -16,9 +16,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
     int empId;
+
     @Column(name = "first_name")
     String firstName;
     String gender;
@@ -58,12 +59,15 @@ public class Employee {
     String joiningLocation;
     String status;
     String manager;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="desg_id")
     Designation designation;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="dep_id")
     Department department;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="role_id")
     Role role;
