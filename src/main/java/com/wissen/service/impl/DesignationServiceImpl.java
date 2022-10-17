@@ -5,6 +5,7 @@ import com.wissen.service.DesignationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,18 @@ public class DesignationServiceImpl implements DesignationService {
         Designation designationEntity = new Designation();
         designationEntity.setDesgName(designation);
         return designationEntity;
+    }
+
+    @Override
+    public List<Designation> getAllDesignation(){
+        List<Designation> designations = new ArrayList<Designation>();
+        designationRepository.findAll().forEach(designation -> designations.add(designation));
+        return designations;
+    }
+
+    @Override
+    public Designation getDesignationById(int id){
+        return designationRepository.findById(id).get();
     }
 }
 

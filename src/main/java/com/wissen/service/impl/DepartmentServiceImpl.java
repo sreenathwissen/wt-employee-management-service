@@ -6,6 +6,7 @@ import com.wissen.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +30,17 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentEntity.setDepName(department);
 
         return departmentEntity;
+    }
+
+    @Override
+    public List<Department> getAllDepartments(){
+        List<Department> departments = new ArrayList<Department>();
+        departmentRepository.findAll().forEach(department -> departments.add(department));
+        return departments;
+    }
+
+    @Override
+    public Department getDepartmentById(int id){
+        return departmentRepository.findById(id).get();
     }
 }

@@ -1,11 +1,13 @@
 package com.wissen.service.impl;
 
+import com.wissen.entity.Department;
 import com.wissen.entity.Skill;
 import com.wissen.repository.SkillRespository;
 import com.wissen.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +31,17 @@ public class SkillServiceImpl implements SkillService {
         skillEntity.setSkillName(skills);
 
         return skillEntity;
+    }
+
+    @Override
+    public List<Skill> getAllSkills(){
+        List<Skill> skills = new ArrayList<Skill>();
+        skillRespository.findAll().forEach(skill -> skills.add(skill));
+        return skills;
+    }
+
+    @Override
+    public Skill getSkillById(int id){
+        return skillRespository.findById(id).get();
     }
 }
