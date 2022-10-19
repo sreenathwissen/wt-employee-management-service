@@ -1,5 +1,6 @@
 package com.wissen.controller;
 
+import com.wissen.entity.Department;
 import com.wissen.entity.Designation;
 import com.wissen.service.DesignationService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -19,7 +17,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/api/designation")
-public class DesignationAPI {
+public class DesignationController {
 
     @Autowired
     private DesignationService designationService;
@@ -30,5 +28,16 @@ public class DesignationAPI {
         this.designationService.saveDesignations(designations);
         return ResponseEntity.status(HttpStatus.OK)
                 .body("Designations are saved successfully");
+    }
+
+    @GetMapping
+    public List<Designation> getAllDesignation(){
+        log.info("Starting to fetch all the designations");
+        return designationService.getAllDesignation();
+    }
+
+    @GetMapping({"/{id}"})
+    public ResponseEntity<Designation> getDesignationById(@PathVariable int id){
+        return new ResponseEntity<>(designationService.getDesignationById(id),HttpStatus.OK);
     }
 }

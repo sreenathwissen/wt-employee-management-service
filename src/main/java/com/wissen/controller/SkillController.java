@@ -1,5 +1,7 @@
 package com.wissen.controller;
 
+import com.wissen.entity.Designation;
+import com.wissen.entity.Skill;
 import com.wissen.service.SkillService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +29,16 @@ public class SkillController {
         this.skillService.saveSkills(skills);
         return ResponseEntity.status(HttpStatus.OK)
                 .body("Skills are saved successfully");
+    }
+
+    @GetMapping
+    public List<Skill> getAllSkills(){
+        log.info("Starting to fetch the skills");
+        return skillService.getAllSkills();
+    }
+
+    @GetMapping({"/{id}"})
+    public ResponseEntity<Skill> getSkillById(@PathVariable int id){
+        return new ResponseEntity<>(skillService.getSkillById(id),HttpStatus.OK);
     }
 }
