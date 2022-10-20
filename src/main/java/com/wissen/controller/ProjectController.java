@@ -47,4 +47,22 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body("Saved project to employee mapping successfully");
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Project>> searchProject(@RequestParam final String searchString) {
+        log.info("START :  Searching project");
+        List<Project> projects = this.projectService.searchProjectToClientDetails(searchString);
+        log.info("START :  Searching project");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(projects);
+    }
+
+    @GetMapping
+    public ResponseEntity<Project> getProjectById(@RequestParam @NotNull(message = "Project id is null") final int id) {
+        log.info("START :  Getting project");
+        Project project = this.projectService.getProjectToClientDetailsByProjectId(id);
+        log.info("START :  Getting project");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(project);
+    }
 }

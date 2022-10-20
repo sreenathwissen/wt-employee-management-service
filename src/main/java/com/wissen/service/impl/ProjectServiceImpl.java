@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,6 +52,16 @@ public class ProjectServiceImpl implements ProjectService {
         employeeProject.setDojOnboarding(doj);
         employeeProject.setDorOnboarding(dor);
         this.employeeProjectRepository.save(employeeProject);
+    }
+
+    @Override
+    public List<Project> searchProjectToClientDetails(String searchString) {
+        return this.projectRepository.getProjectToClientDetails(searchString);
+    }
+
+    @Override
+    public Project getProjectToClientDetailsByProjectId(int projectId) {
+        return this.projectRepository.getProjectToClientDetailsByProjectId(projectId);
     }
 
     private Project getProject(final ProjectDTO projectDTO) {
