@@ -1,13 +1,14 @@
 package com.wissen.service.impl;
 
 
-import com.wissen.entity.Department;
-import com.wissen.entity.Designation;
-import com.wissen.entity.Employee;
-import com.wissen.entity.Role;
+import com.wissen.dto.EmployeeDetailDTO;
+import com.wissen.entity.*;
 import com.wissen.exception.EmployeeNotFoundException;
 import com.wissen.repository.*;
+import com.wissen.service.AddressService;
+import com.wissen.service.EmployeeAccountService;
 import com.wissen.service.EmployeeService;
+import com.wissen.service.EmployeeSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -30,6 +32,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     DepartmentRepository departmentRepository;
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private EmployeeSkillService employeeSkillService;
+
+    @Autowired
+    private EmployeeAccountService employeeAccountService;
 
     public String createEmployee(Employee employee) {
         employee.setStatus("active");
@@ -168,5 +179,35 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setStatus("inactive");
         employeeRepository.save(employee);
         return "Employee with given id is deleted";
+    }
+
+    public List<EmployeeDetailDTO> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList){
+        List<EmployeeDetailDTO> result = new ArrayList<>();
+        employeeDetailDTOList.stream().filter(dto -> Objects.nonNull(dto))
+                .forEach(dto -> {
+                    EmployeeDetailDTO employeeDetailDTO = new EmployeeDetailDTO();
+
+                    //Saving Employee
+                    Employee employee = this.employeeRepository.save(dto.getEmployee());
+                    employeeDetailDTO.setEmployee(employee);
+
+                    //Saving Employee Address
+                    Address address = this.addressService.saveAddress(dto.getAddress(), employee);
+                    employeeDetailDTO.setAddress(address);
+
+                    //Saving Employee Skill
+                    EmployeeSkill employeeSkill = this.employeeSkillService
+                            .saveEmployeeSkill(employee, dto.getEmployeeSkill());
+                    employeeDetailDTO.setEmployeeSkill(employeeSkill);
+
+                    //Saving Employee Account
+                    EmployeeAccount employeeAccount = this.employeeAccountService
+                            .saveEmployeeAccount(employee, dto.getEmployeeAccount());
+                    employeeDetailDTO.setEmployeeAccount(employeeAccount);
+
+                    result.add(employeeDetailDTO);
+                });
+
+        return result;
     }
 }
