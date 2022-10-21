@@ -25,11 +25,20 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @PostMapping
-    public ResponseEntity<String> saveDepartment(@RequestBody @NotEmpty(message = "Department list is empty") final List<String> departments){
+    public ResponseEntity<List<Department> > saveDepartment(@RequestBody @NotEmpty(message = "Department list is empty") final List<String> departments){
         log.info("Starting to save the departments");
-        this.departmentService.saveDepartments(departments);
+        List<Department> savedDepartments = this.departmentService.saveDepartments(departments);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Departments are saved successfully");
+                .body(savedDepartments);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Department>> searchDepartments(@RequestParam final String department) {
+        log.info("START: Getting departments");
+        List<Department> departments = this.departmentService.searchDepartments(department);
+        log.info("START: Getting departments");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(departments);
     }
 
     @GetMapping

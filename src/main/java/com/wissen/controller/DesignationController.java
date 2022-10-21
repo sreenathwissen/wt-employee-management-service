@@ -23,11 +23,20 @@ public class DesignationController {
     private DesignationService designationService;
 
     @PostMapping
-    public ResponseEntity<String> saveDesignation(@RequestBody @NotEmpty(message = "Designation list is empty.") final List<String> designations){
+    public ResponseEntity<List<Designation>> saveDesignation(@RequestBody @NotEmpty(message = "Designation list is empty.") final List<String> designations){
         log.info("Starting to save the designations");
-        this.designationService.saveDesignations(designations);
+        List<Designation> savedDesignations = this.designationService.saveDesignations(designations);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Designations are saved successfully");
+                .body(savedDesignations);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Designation>> searchDesignations(@RequestParam final String designation) {
+        log.info("START: Getting designations");
+        List<Designation> designations = this.designationService.searchDesignations(designation);
+        log.info("START: Getting designations");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(designations);
     }
 
     @GetMapping

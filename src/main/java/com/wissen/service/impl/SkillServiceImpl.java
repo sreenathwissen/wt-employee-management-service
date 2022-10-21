@@ -1,6 +1,7 @@
 package com.wissen.service.impl;
 
 import com.wissen.entity.Department;
+import com.wissen.entity.Designation;
 import com.wissen.entity.Skill;
 import com.wissen.repository.SkillRespository;
 import com.wissen.service.SkillService;
@@ -18,12 +19,19 @@ public class SkillServiceImpl implements SkillService {
     SkillRespository skillRespository;
 
     @Override
-    public void saveSkills (final List<String> skills){
+    public List<Skill> saveSkills (final List<String> skills){
         List<Skill> skillEntities = skills.stream()
                 .map(skill -> getSkill(skill))
                 .collect(Collectors.toList());
 
-        this.skillRespository.saveAll(skillEntities);
+        return this.skillRespository.saveAll(skillEntities);
+    }
+
+    @Override
+    public List<Skill> searchSkills(String searchString) {
+        List<Skill> skills = new ArrayList<>();
+        skills.addAll(this.skillRespository.getSkillByPattern(searchString));
+        return skills;
     }
 
     private Skill getSkill(final String skills){

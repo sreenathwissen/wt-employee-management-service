@@ -17,12 +17,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentRepository departmentRepository;
 
     @Override
-    public void saveDepartments (final List<String> departments){
+    public List<Department> saveDepartments (final List<String> departments){
         List<Department> departmentEntities = departments.stream()
                 .map(department -> getDepartment(department))
                 .collect(Collectors.toList());
 
-        this.departmentRepository.saveAll(departmentEntities);
+        return this.departmentRepository.saveAll(departmentEntities);
+    }
+
+    @Override
+    public List<Department> searchDepartments(String searchString) {
+        List<Department> departments = new ArrayList<>();
+        departments.addAll(this.departmentRepository.getDepartmentByPattern(searchString));
+        return departments;
     }
 
     private Department getDepartment(final String department) {
