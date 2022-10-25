@@ -1,6 +1,7 @@
 package com.wissen.controller;
 
 import com.wissen.dto.ClientDTO;
+import com.wissen.entity.Client;
 import com.wissen.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,21 @@ public class ClientController {
                 .body("Saved clients successfully");
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Client>> searchClients(@RequestParam final String clientName) {
+        log.info("START: Getting clients");
+        List<Client> clients = this.clientService.searchClients(clientName);
+        log.info("START: Getting clients");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(clients);
+    }
+
+    @GetMapping
+    public ResponseEntity<Client> getClientsId(@RequestParam @NotNull(message = "Client id is null") final int clientId) {
+        log.info("START: Getting client");
+        Client client = this.clientService.getClientById(clientId);
+        log.info("START: Getting client");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(client);
+    }
 }
