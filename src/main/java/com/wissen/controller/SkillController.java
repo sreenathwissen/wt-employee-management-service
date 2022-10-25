@@ -1,5 +1,6 @@
 package com.wissen.controller;
 
+import com.wissen.entity.Department;
 import com.wissen.entity.Designation;
 import com.wissen.entity.Skill;
 import com.wissen.service.SkillService;
@@ -24,11 +25,20 @@ public class SkillController {
     private SkillService skillService;
 
     @PostMapping
-    public ResponseEntity<String> saveSkill(@RequestBody @NotEmpty(message = "Skill list is empty") final List<String> skills){
+    public ResponseEntity<List<Skill>> saveSkill(@RequestBody @NotEmpty(message = "Skill list is empty") final List<String> skills){
         log.info("Starting to save Skills");
-        this.skillService.saveSkills(skills);
+        List<Skill> savedSkills = this.skillService.saveSkills(skills);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Skills are saved successfully");
+                .body(savedSkills);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Skill>> searchSkills(@RequestParam final String skill) {
+        log.info("START: Getting skills");
+        List<Skill> skills = this.skillService.searchSkills(skill);
+        log.info("START: Getting skills");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(skills);
     }
 
     @GetMapping

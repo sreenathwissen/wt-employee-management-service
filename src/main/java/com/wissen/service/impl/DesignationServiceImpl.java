@@ -1,4 +1,5 @@
 package com.wissen.service.impl;
+import com.wissen.entity.Department;
 import com.wissen.entity.Designation;
 import com.wissen.repository.DesignationRepository;
 import com.wissen.service.DesignationService;
@@ -16,11 +17,18 @@ public class DesignationServiceImpl implements DesignationService {
     private DesignationRepository designationRepository;
 
     @Override
-    public void saveDesignations(final List<String> designations) {
+    public List<Designation> saveDesignations(final List<String> designations) {
         List<Designation> designationEntities = designations.stream()
                 .map(designation -> getDesignations(designation))
                 .collect(Collectors.toList());
-        this.designationRepository.saveAll(designationEntities);
+        return this.designationRepository.saveAll(designationEntities);
+    }
+
+    @Override
+    public List<Designation> searchDesignations(String searchString) {
+        List<Designation> designations = new ArrayList<>();
+        designations.addAll(this.designationRepository.getDesignationByPattern(searchString));
+        return designations;
     }
 
     private Designation getDesignations(String designation){
