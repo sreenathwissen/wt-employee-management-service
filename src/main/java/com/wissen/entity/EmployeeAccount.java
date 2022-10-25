@@ -1,12 +1,12 @@
 package com.wissen.entity;
 
+import com.wissen.entity.key.EmployeeAccountId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Getter
@@ -21,11 +21,4 @@ public class EmployeeAccount {
     String uan;
     @Column(name = "pf_no")
     String pfNo;
-}
-
-@Embeddable
-class EmployeeAccountId implements Serializable {
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="emp_id")
-    Employee employee;
 }

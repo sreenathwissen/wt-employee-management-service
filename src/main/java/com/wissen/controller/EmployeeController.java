@@ -1,5 +1,6 @@
 package com.wissen.controller;
 
+import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.entity.Employee;
 import com.wissen.helper.ExcelHelper;
 import com.wissen.service.impl.EmployeeServiceImpl;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,6 +20,15 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     EmployeeServiceImpl service;
+
+    @PostMapping("/insertEmployeeDetails")
+    @ApiOperation("Inserts the details of an Employee")
+    public ResponseEntity<List<EmployeeDetailDTO>> insertDetails(@RequestBody @NotEmpty(message = "Details list is empty") final List<EmployeeDetailDTO> employeeDetails){
+        List<EmployeeDetailDTO> result = this.service.saveEmployeeDetails(employeeDetails);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(result);
+    }
     @PostMapping
     @ApiOperation("Creates new Employee")
     public ResponseEntity<String> create(@RequestBody Employee employee) {
