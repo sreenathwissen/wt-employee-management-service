@@ -13,10 +13,13 @@ import java.util.Date;
 @Data
 @Table(name = "employee_project")
 public class EmployeeProject {
+
     @EmbeddedId
     EmployeeProjectId employeeProjectId;
+
     @Column(name = "doj_onboarding")
     LocalDate dojOnboarding;
+
     @Column(name = "dor_onboarding")
     LocalDate dorOnboarding;
 }
