@@ -15,9 +15,7 @@ public class EmployeeAccountServiceImpl implements EmployeeAccountService {
     private EmployeeAccountRepository employeeAccountRepository;
 
     @Override
-    public EmployeeAccount saveEmployeeAccount(Employee employee, EmployeeAccount employeeAccount) {
-        employeeAccount.getEmployeeAccountId().setEmployee(employee);
-
+    public EmployeeAccount saveEmployeeAccount(EmployeeAccount employeeAccount) {
         return this.employeeAccountRepository.save(employeeAccount);
     }
 }

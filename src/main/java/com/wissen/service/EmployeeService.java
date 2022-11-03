@@ -20,7 +20,7 @@ public interface EmployeeService {
 
     String deleteEmployee(int id);
 
-    public List<EmployeeDetailDTO> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList);
+    public void saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList);
 
     public List<Employee> getEmployees();
 }

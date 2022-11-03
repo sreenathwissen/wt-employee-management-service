@@ -3,6 +3,7 @@ package com.wissen.controller;
 import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.entity.Employee;
 import com.wissen.helper.ExcelHelper;
+import com.wissen.service.EmployeeService;
 import com.wissen.service.impl.EmployeeServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,16 +21,17 @@ import java.util.List;
 @RequestMapping("/api/employee")
 @Slf4j
 public class EmployeeController {
+
     @Autowired
-    EmployeeServiceImpl service;
+    private EmployeeService service;
 
     @PostMapping("/insertEmployeeDetails")
     @ApiOperation("Inserts the details of an Employee")
-    public ResponseEntity<List<EmployeeDetailDTO>> insertDetails(@RequestBody @NotEmpty(message = "Details list is empty") final List<EmployeeDetailDTO> employeeDetails){
-        List<EmployeeDetailDTO> result = this.service.saveEmployeeDetails(employeeDetails);
+    public ResponseEntity<String> insertDetails(@RequestBody @NotEmpty(message = "Details list is empty") final List<EmployeeDetailDTO> employeeDetails){
+        this.service.saveEmployeeDetails(employeeDetails);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(result);
+                .body("saved successfully");
     }
     @PostMapping
     @ApiOperation("Creates new Employee")

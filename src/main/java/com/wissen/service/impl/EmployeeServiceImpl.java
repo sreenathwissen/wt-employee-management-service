@@ -9,6 +9,7 @@ import com.wissen.service.AddressService;
 import com.wissen.service.EmployeeAccountService;
 import com.wissen.service.EmployeeService;
 import com.wissen.service.EmployeeSkillService;
+import com.wissen.utils.EmployeeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -181,34 +183,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         return "Employee with given id is deleted";
     }
 
-    public List<EmployeeDetailDTO> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList){
-        List<EmployeeDetailDTO> result = new ArrayList<>();
+    @Override
+    public void saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList){
         employeeDetailDTOList.stream().filter(dto -> Objects.nonNull(dto))
                 .forEach(dto -> {
                     EmployeeDetailDTO employeeDetailDTO = new EmployeeDetailDTO();
 
                     //Saving Employee
-                    Employee employee = this.employeeRepository.save(dto.getEmployee());
-                    employeeDetailDTO.setEmployee(employee);
+                    Employee employee = this.employeeRepository.save(EmployeeUtil.getEmployeeEntity(dto));
 
                     //Saving Employee Address
-                    Address address = this.addressService.saveAddress(dto.getAddress(), employee);
-                    employeeDetailDTO.setAddress(address);
+                    List<Address> addressList = dto.getAddressDTOList().parallelStream().map(addressDTO ->
+                            EmployeeUtil.getAddressEntity(addressDTO, employee)).collect(Collectors.toList());
+                    List<Address> saveAddresses = this.addressService.saveAddresses(addressList);
 
                     //Saving Employee Skill
-                    EmployeeSkill employeeSkill = this.employeeSkillService
-                            .saveEmployeeSkill(employee, dto.getEmployeeSkill());
-                    employeeDetailDTO.setEmployeeSkill(employeeSkill);
+                    List<EmployeeSkill> employeeSkillList = dto.getEmployeeSkillDTOList().parallelStream().map(employeeSkillDTO ->
+                            EmployeeUtil.getEmployeeSkillEntity(employeeSkillDTO, employee)).collect(Collectors.toList());
+
+                    List<EmployeeSkill> employeeSkill = this.employeeSkillService
+                            .saveEmployeeSkills(employeeSkillList);
 
                     //Saving Employee Account
                     EmployeeAccount employeeAccount = this.employeeAccountService
-                            .saveEmployeeAccount(employee, dto.getEmployeeAccount());
-                    employeeDetailDTO.setEmployeeAccount(employeeAccount);
-
-                    result.add(employeeDetailDTO);
+                            .saveEmployeeAccount(EmployeeUtil.getEmployeeAccountEntity(dto.getEmployeeAccountDTO(), employee));
                 });
-
-        return result;
     }
 
     @Override
