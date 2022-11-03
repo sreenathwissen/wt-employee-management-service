@@ -210,4 +210,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return result;
     }
+
+    @Override
+    public List<Employee> getEmployees() {
+        return this.employeeRepository.findAll();
+    }
+
 }

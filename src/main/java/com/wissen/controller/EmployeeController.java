@@ -5,6 +5,7 @@ import com.wissen.entity.Employee;
 import com.wissen.helper.ExcelHelper;
 import com.wissen.service.impl.EmployeeServiceImpl;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employee")
+@Slf4j
 public class EmployeeController {
     @Autowired
     EmployeeServiceImpl service;
@@ -49,24 +51,32 @@ public class EmployeeController {
         message = "Please upload an excel file!";
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
-    @GetMapping
-    @ApiOperation("Fetches all employees")
-    public ResponseEntity<List> read(){
-        return new ResponseEntity<>(service.readEmployee(), HttpStatus.OK);
-    }
+
     @GetMapping("/{id}")
     @ApiOperation("Fetch an employee with ID")
     public ResponseEntity<Employee> read(@PathVariable int id){
         return new ResponseEntity<>(service.readEmployee(id), HttpStatus.OK);
     }
+
     @PatchMapping("/{id}")
     @ApiOperation("Update an employee with id")
     public ResponseEntity<String> update(@PathVariable int id, @RequestBody Employee employee){
         return new ResponseEntity<>(service.updateEmployee(employee, id), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     @ApiOperation("Delete an employee with id")
     public ResponseEntity<String> delete(@PathVariable int id){
         return new ResponseEntity<>(service.deleteEmployee(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/employees")
+    @ApiOperation("Get all employees")
+    public ResponseEntity<List<Employee>> getEmployees() {
+        log.info("START : Getting all employees");
+        List<Employee> employees = this.service.getEmployees();
+        log.info("END : Getting all employees");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employees);
     }
 }
