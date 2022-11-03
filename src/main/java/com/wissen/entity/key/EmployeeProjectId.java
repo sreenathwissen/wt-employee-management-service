@@ -10,9 +10,11 @@ import java.io.Serializable;
 @Embeddable
 @Data
 public class EmployeeProjectId implements Serializable {
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="emp_id")
     Employee employee;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="project_id")
     Project project;

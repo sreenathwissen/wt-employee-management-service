@@ -2,6 +2,7 @@ package com.wissen.controller;
 
 import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.entity.Employee;
+import com.wissen.entity.EmployeeProject;
 import com.wissen.helper.ExcelHelper;
 import com.wissen.service.impl.EmployeeServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
 
@@ -52,12 +54,6 @@ public class EmployeeController {
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/{id}")
-    @ApiOperation("Fetch an employee with ID")
-    public ResponseEntity<Employee> read(@PathVariable int id){
-        return new ResponseEntity<>(service.readEmployee(id), HttpStatus.OK);
-    }
-
     @PatchMapping("/{id}")
     @ApiOperation("Update an employee with id")
     public ResponseEntity<String> update(@PathVariable int id, @RequestBody Employee employee){
@@ -78,5 +74,17 @@ public class EmployeeController {
         log.info("END : Getting all employees");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employees);
+    }
+
+    @GetMapping("/project")
+    @ApiOperation("Get employee's projects")
+    public ResponseEntity<List<EmployeeProject>> getEmployeeProjectByEmployee(
+            @RequestParam @NotNull(message = "Employee id is null") int empId
+    ) {
+        log.info("START : Getting employee's projects");
+        List<EmployeeProject> employeeProjects = this.service.getEmployeeProjectByEmployeeId(empId);
+        log.info("END : Getting employee's projects");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeeProjects);
     }
 }
