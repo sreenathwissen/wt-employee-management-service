@@ -5,6 +5,7 @@ import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.entity.*;
 import com.wissen.exception.EmployeeNotFoundException;
 import com.wissen.repository.*;
+import com.wissen.response.*;
 import com.wissen.service.AddressService;
 import com.wissen.service.EmployeeAccountService;
 import com.wissen.service.EmployeeService;
@@ -184,30 +185,43 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList){
+    public List<EmployeeSaveResponse> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList){
+
+        List<EmployeeSaveResponse> employeeSaveResponses = new ArrayList<>();
         employeeDetailDTOList.stream().filter(dto -> Objects.nonNull(dto))
                 .forEach(dto -> {
-                    EmployeeDetailDTO employeeDetailDTO = new EmployeeDetailDTO();
+                    EmployeeSaveResponse employeeSaveResponse = new EmployeeSaveResponse();
 
                     //Saving Employee
                     Employee employee = this.employeeRepository.save(EmployeeUtil.getEmployeeEntity(dto));
+                    EmployeeResponse employeeResponse = EmployeeUtil.getEmployeeResponse(employee);
+                    employeeSaveResponse.setEmployeeResponse(employeeResponse);
 
                     //Saving Employee Address
                     List<Address> addressList = dto.getAddressDTOList().parallelStream().map(addressDTO ->
                             EmployeeUtil.getAddressEntity(addressDTO, employee)).collect(Collectors.toList());
                     List<Address> saveAddresses = this.addressService.saveAddresses(addressList);
+                    List<AddressResponse> addressResponseList = EmployeeUtil.getAddressResponseList(saveAddresses);
+                    employeeSaveResponse.setAddressResponse(addressResponseList);
 
                     //Saving Employee Skill
                     List<EmployeeSkill> employeeSkillList = dto.getEmployeeSkillDTOList().parallelStream().map(employeeSkillDTO ->
                             EmployeeUtil.getEmployeeSkillEntity(employeeSkillDTO, employee)).collect(Collectors.toList());
-
                     List<EmployeeSkill> employeeSkill = this.employeeSkillService
                             .saveEmployeeSkills(employeeSkillList);
+                    List<EmployeeSkillResponse> employeeSkillResponseList = EmployeeUtil.getEmployeeSkillResponse(employeeSkill);
+                    employeeSaveResponse.setEmployeeSkillResponse(employeeSkillResponseList);
 
                     //Saving Employee Account
                     EmployeeAccount employeeAccount = this.employeeAccountService
                             .saveEmployeeAccount(EmployeeUtil.getEmployeeAccountEntity(dto.getEmployeeAccountDTO(), employee));
+                    EmployeeAccountResponse employeeAccountResponse = EmployeeUtil.getEmployeeAccountResponse(employeeAccount);
+                    employeeSaveResponse.setEmployeeAccountResponse(employeeAccountResponse);
+
+                    employeeSaveResponses.add(employeeSaveResponse);
+
                 });
+        return employeeSaveResponses;
     }
 
     @Override

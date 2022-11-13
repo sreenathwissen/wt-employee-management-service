@@ -16,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class EmployeeDetailDTO {
 
+    int employeeId;
+
     @NotNull(message = "First name is null")
     @NotEmpty(message = "first name cannot be empty.")
     private String firstName;
@@ -25,7 +27,6 @@ public class EmployeeDetailDTO {
     private String gender;
 
     @NotNull(message = "Date of birth is null")
-    @NotEmpty(message = "Date of birth cannot be empty.")
     private Date dob;
 
     @NotNull(message = "Blood group is null")
@@ -33,7 +34,6 @@ public class EmployeeDetailDTO {
     private String bloodGroup;
 
     @NotNull(message = "primary phone number is null")
-    @NotEmpty(message = "primary phone number cannot be empty.")
     private long primaryPhoneNumber;
 
     private long secondaryPhoneNumber;
@@ -45,13 +45,10 @@ public class EmployeeDetailDTO {
     private long workPhone;
 
     @NotNull(message = "primary emergency number is null")
-    @NotEmpty(message = "primary emergency number be empty.")
     private long primaryEmergencyContactNumber;
 
     private long secondaryEmergencyContactNumber;
 
-    @NotNull(message = "Marital status date is null")
-    @NotEmpty(message = "Marital status cannot be empty.")
     private Date maritalStatusDate;
 
     @NotNull(message = "Email is null")
@@ -59,15 +56,12 @@ public class EmployeeDetailDTO {
     private String email;
 
     @NotNull(message = "Date of joining is null")
-    @NotEmpty(message = "Date of joining cannot be empty.")
     private Date doj;
 
     @NotNull(message = "Experience till date if joining is null")
     @NotEmpty(message = "Experience till date if joining cannot be empty.")
     private String expDoj;
 
-    @NotNull(message = "Exit date is null")
-    @NotEmpty(message = "Exit date cannot be empty.")
     private Date exitDate;
 
     @NotNull(message = "Type  is null")

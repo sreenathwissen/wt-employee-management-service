@@ -2,6 +2,7 @@ package com.wissen.service;
 
 import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.entity.Employee;
+import com.wissen.response.EmployeeSaveResponse;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +21,7 @@ public interface EmployeeService {
 
     String deleteEmployee(int id);
 
-    public void saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList);
+    public List<EmployeeSaveResponse> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList);
 
     public List<Employee> getEmployees();
 }

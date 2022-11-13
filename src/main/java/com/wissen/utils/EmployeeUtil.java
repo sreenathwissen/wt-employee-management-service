@@ -4,12 +4,17 @@ import com.wissen.dto.*;
 import com.wissen.entity.*;
 import com.wissen.entity.key.EmployeeAccountId;
 import com.wissen.entity.key.EmployeeSkillId;
+import com.wissen.response.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class EmployeeUtil {
 
     public static Employee getEmployeeEntity(EmployeeDetailDTO employeeDetailDTO){
         Employee employee = new Employee();
 
+        employee.setEmpId(employeeDetailDTO.getEmployeeId());
         employee.setFirstName(employeeDetailDTO.getFirstName());
         employee.setGender(employeeDetailDTO.getGender());
         employee.setDob(employeeDetailDTO.getDob());
@@ -59,6 +64,7 @@ public final class EmployeeUtil {
 
     public static Address getAddressEntity(AddressDTO addressDTO, Employee employee){
         Address address = new Address();
+        address.setAddrId(addressDTO.getAddressId());
         address.setEmployee(employee);
         address.setFlatNo(addressDTO.getFlatNo());
         address.setStreet(addressDTO.getStreet());
@@ -73,6 +79,7 @@ public final class EmployeeUtil {
 
     public static EmployeeSkill getEmployeeSkillEntity(EmployeeSkillDTO employeeSkillDTO, Employee employee){
         EmployeeSkill employeeSkill = new EmployeeSkill();
+
         Skill skill = new Skill();
         skill.setSkillId(employeeSkillDTO.getSkillId());
         skill.setSkillName(employeeSkillDTO.getSkillName());
@@ -87,7 +94,7 @@ public final class EmployeeUtil {
         return employeeSkill;
     }
 
-    public  static EmployeeAccount getEmployeeAccountEntity(EmployeeAccountDTO employeeAccountDTO, Employee employee){
+    public static EmployeeAccount getEmployeeAccountEntity(EmployeeAccountDTO employeeAccountDTO, Employee employee){
         EmployeeAccount employeeAccount = new EmployeeAccount();
         EmployeeAccountId employeeAccountId = new EmployeeAccountId();
 
@@ -98,5 +105,75 @@ public final class EmployeeUtil {
         employeeAccount.setUan(employeeAccountDTO.getUan());
 
         return employeeAccount;
+    }
+
+    public static EmployeeResponse getEmployeeResponse(Employee employee){
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        employeeResponse.setEmpId(employee.getEmpId());
+        employeeResponse.setFirstName(employee.getFirstName());
+        employeeResponse.setGender(employee.getGender());
+        employeeResponse.setDob(employee.getDob());
+        employeeResponse.setBloodGroup(employee.getBloodGroup());
+        employeeResponse.setPrimaryPhoneNumber(employee.getPrimaryPhoneNumber());
+        employeeResponse.setSecondaryPhoneNumber(employee.getSecondaryPhoneNumber());
+        employeeResponse.setLastName(employee.getLastName());
+        employeeResponse.setWorkPhone(employee.getWorkPhone());
+        employeeResponse.setPrimaryEmergencyContactNumber(employee.getPrimaryEmergencyContactNumber());
+        employeeResponse.setSecondaryEmergencyContactNumber(employee.getSecondaryEmergencyContactNumber());
+        employeeResponse.setMaritalStatusDate(employee.getMaritalStatusDate());
+        employeeResponse.setEmail(employee.getEmail());
+        employeeResponse.setDoj(employee.getDoj());
+        employeeResponse.setExpDoj(employee.getExpDoj());
+        employeeResponse.setExitDate(employee.getExitDate());
+        employeeResponse.setType(employee.getType());
+        employeeResponse.setJoiningLocation(employee.getJoiningLocation());
+        employeeResponse.setStatus(employee.getStatus());
+        employeeResponse.setManager(employee.getManager());
+        employeeResponse.setDesignation(employee.getDesignation());
+        employeeResponse.setDepartment(employee.getDepartment());
+        employeeResponse.setRole(employee.getRole());
+
+        return employeeResponse;
+    }
+
+    public static List<AddressResponse> getAddressResponseList(List<Address> addressList) {
+        List<AddressResponse> addressResponseList = new ArrayList<>();
+
+        for(int i=0 ; i<addressList.size(); i++) {
+            AddressResponse addressResponse = new AddressResponse();
+            addressResponse.setAddrId(addressList.get(i).getAddrId());
+            addressResponse.setFlatNo(addressList.get(i).getFlatNo());
+            addressResponse.setStreet(addressList.get(i).getStreet());
+            addressResponse.setPincode(addressList.get(i).getPincode());
+            addressResponse.setAddressType(addressList.get(i).getAddressType());
+            addressResponse.setCity(addressList.get(i).getCity());
+            addressResponse.setCountry(addressList.get(i).getCountry());
+            addressResponse.setState(addressList.get(i).getState());
+            addressResponse.setEmpId(addressList.get(i).getEmployee().getEmpId());
+            addressResponseList.add(addressResponse);
+        }
+        return addressResponseList;
+    }
+
+    public static List<EmployeeSkillResponse> getEmployeeSkillResponse(List<EmployeeSkill> employeeSkillList){
+        List<EmployeeSkillResponse> employeeSkillResponseList = new ArrayList<>();
+        for(int i=0; i<employeeSkillList.size(); i++){
+            EmployeeSkillResponse employeeSkillResponse = new EmployeeSkillResponse();
+            employeeSkillResponse.setEmpId(employeeSkillList.get(i).getEmployeeSkillId().getEmployee().getEmpId());
+            employeeSkillResponse.setSkill(employeeSkillList.get(i).getEmployeeSkillId().getSkill());
+            employeeSkillResponse.setLevels(employeeSkillList.get(i).getLevels());
+            employeeSkillResponseList.add(employeeSkillResponse);
+        }
+        return employeeSkillResponseList;
+    }
+
+    public static EmployeeAccountResponse getEmployeeAccountResponse(EmployeeAccount employeeAccount){
+        EmployeeAccountResponse employeeAccountResponse = new EmployeeAccountResponse();
+        employeeAccountResponse.setEmpId(employeeAccount.getEmployeeAccountId().getEmployee().getEmpId());
+        employeeAccountResponse.setPan(employeeAccount.getPan());
+        employeeAccountResponse.setUan(employeeAccount.getUan());
+        employeeAccountResponse.setPfNo(employeeAccount.getPfNo());
+
+        return employeeAccountResponse;
     }
 }
