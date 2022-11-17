@@ -3,6 +3,7 @@ package com.wissen.service.impl;
 
 import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.entity.*;
+import com.wissen.entity.key.EmployeeProjectId;
 import com.wissen.exception.EmployeeNotFoundException;
 import com.wissen.repository.*;
 import com.wissen.response.*;
@@ -27,12 +28,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
     @Autowired
     ClientRepository clientRepository;
+
     @Autowired
     DesignationRepository designationRepository;
+
     @Autowired
     DepartmentRepository departmentRepository;
+
     @Autowired
     RoleRepository roleRepository;
 
@@ -44,6 +49,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeAccountService employeeAccountService;
+
+    @Autowired EmployeeProjectRepository employeeProjectRepository;
 
     public String createEmployee(Employee employee) {
         employee.setStatus("active");
@@ -69,14 +76,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeRepository.save(employee);
         }
         return "Employees added successfully from file";
-    }
-
-    public List<Employee> readEmployee() {
-        return new ArrayList<>(employeeRepository.findAll());
-    }
-
-    public Employee readEmployee(int id) {
-        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
     }
 
     public String updateEmployee(Employee employee, int id) {
@@ -227,6 +226,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployees() {
         return this.employeeRepository.findAll();
+    }
+
+    @Override
+    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId) {
+        Employee employee = new Employee();
+        employee.setEmpId(empId);
+        EmployeeProjectId employeeProjectId = new EmployeeProjectId();
+        employeeProjectId.setEmployee(employee);
+        return this.employeeProjectRepository.getEmployeeProjectByEmployeeProjectIdEmployee(employee);
     }
 
 }
