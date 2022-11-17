@@ -38,7 +38,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client getClientById(int clientId) {
         Optional<Client> result =  this.clientRepository.findById(clientId);
-        if(Objects.isNull(result))
+        if(Objects.nonNull(result))
             return result.get();
         return null;
     }
