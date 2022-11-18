@@ -5,5 +5,5 @@ import com.wissen.entity.EmployeeAccount;
 
 public interface EmployeeAccountService {
 
-    public EmployeeAccount saveEmployeeAccount(Employee employee, EmployeeAccount employeeAccount);
+    public EmployeeAccount saveEmployeeAccount(EmployeeAccount employeeAccount);
 }

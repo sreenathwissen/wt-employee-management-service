@@ -16,9 +16,8 @@ public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
     @Override
-    public Address saveAddress(Address address, Employee employee) {
-        address.setEmployee(employee);
-        return this.addressRepository.save(address);
+    public List<Address> saveAddresses(List<Address> addresses) {
+        return this.addressRepository.saveAll(addresses);
     }
 
     @Override

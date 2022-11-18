@@ -6,10 +6,12 @@ import com.wissen.entity.*;
 import com.wissen.entity.key.EmployeeProjectId;
 import com.wissen.exception.EmployeeNotFoundException;
 import com.wissen.repository.*;
+import com.wissen.response.*;
 import com.wissen.service.AddressService;
 import com.wissen.service.EmployeeAccountService;
 import com.wissen.service.EmployeeService;
 import com.wissen.service.EmployeeSkillService;
+import com.wissen.utils.EmployeeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -180,34 +183,44 @@ public class EmployeeServiceImpl implements EmployeeService {
         return "Employee with given id is deleted";
     }
 
-    public List<EmployeeDetailDTO> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList){
-        List<EmployeeDetailDTO> result = new ArrayList<>();
+    @Override
+    public List<EmployeeSaveResponse> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList){
+
+        List<EmployeeSaveResponse> employeeSaveResponses = new ArrayList<>();
         employeeDetailDTOList.stream().filter(dto -> Objects.nonNull(dto))
                 .forEach(dto -> {
-                    EmployeeDetailDTO employeeDetailDTO = new EmployeeDetailDTO();
+                    EmployeeSaveResponse employeeSaveResponse = new EmployeeSaveResponse();
 
                     //Saving Employee
-                    Employee employee = this.employeeRepository.save(dto.getEmployee());
-                    employeeDetailDTO.setEmployee(employee);
+                    Employee employee = this.employeeRepository.save(EmployeeUtil.getEmployeeEntity(dto));
+                    EmployeeResponse employeeResponse = EmployeeUtil.getEmployeeResponse(employee);
+                    employeeSaveResponse.setEmployeeResponse(employeeResponse);
 
                     //Saving Employee Address
-                    Address address = this.addressService.saveAddress(dto.getAddress(), employee);
-                    employeeDetailDTO.setAddress(address);
+                    List<Address> addressList = dto.getAddressDTOList().parallelStream().map(addressDTO ->
+                            EmployeeUtil.getAddressEntity(addressDTO, employee)).collect(Collectors.toList());
+                    List<Address> saveAddresses = this.addressService.saveAddresses(addressList);
+                    List<AddressResponse> addressResponseList = EmployeeUtil.getAddressResponseList(saveAddresses);
+                    employeeSaveResponse.setAddressResponse(addressResponseList);
 
                     //Saving Employee Skill
-                    EmployeeSkill employeeSkill = this.employeeSkillService
-                            .saveEmployeeSkill(employee, dto.getEmployeeSkill());
-                    employeeDetailDTO.setEmployeeSkill(employeeSkill);
+                    List<EmployeeSkill> employeeSkillList = dto.getEmployeeSkillDTOList().parallelStream().map(employeeSkillDTO ->
+                            EmployeeUtil.getEmployeeSkillEntity(employeeSkillDTO, employee)).collect(Collectors.toList());
+                    List<EmployeeSkill> employeeSkill = this.employeeSkillService
+                            .saveEmployeeSkills(employeeSkillList);
+                    List<EmployeeSkillResponse> employeeSkillResponseList = EmployeeUtil.getEmployeeSkillResponse(employeeSkill);
+                    employeeSaveResponse.setEmployeeSkillResponse(employeeSkillResponseList);
 
                     //Saving Employee Account
                     EmployeeAccount employeeAccount = this.employeeAccountService
-                            .saveEmployeeAccount(employee, dto.getEmployeeAccount());
-                    employeeDetailDTO.setEmployeeAccount(employeeAccount);
+                            .saveEmployeeAccount(EmployeeUtil.getEmployeeAccountEntity(dto.getEmployeeAccountDTO(), employee));
+                    EmployeeAccountResponse employeeAccountResponse = EmployeeUtil.getEmployeeAccountResponse(employeeAccount);
+                    employeeSaveResponse.setEmployeeAccountResponse(employeeAccountResponse);
 
-                    result.add(employeeDetailDTO);
+                    employeeSaveResponses.add(employeeSaveResponse);
+
                 });
-
-        return result;
+        return employeeSaveResponses;
     }
 
     @Override

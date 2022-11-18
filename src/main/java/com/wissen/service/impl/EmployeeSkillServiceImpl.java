@@ -9,6 +9,8 @@ import com.wissen.service.EmployeeSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeSkillServiceImpl implements EmployeeSkillService {
 
@@ -16,8 +18,7 @@ public class EmployeeSkillServiceImpl implements EmployeeSkillService {
     private EmployeeSkillRepository employeeSkillRepository;
 
     @Override
-    public EmployeeSkill saveEmployeeSkill(Employee employee, EmployeeSkill employeeSkill) {
-        employeeSkill.getEmployeeSkillId().setEmployee(employee);
-        return this.employeeSkillRepository.save(employeeSkill);
+    public List<EmployeeSkill> saveEmployeeSkills(List<EmployeeSkill> employeeSkillList) {
+        return this.employeeSkillRepository.saveAll(employeeSkillList);
     }
 }

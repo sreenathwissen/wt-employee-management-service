@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AddressService {
 
-    public Address saveAddress(Address address, Employee employee);
+    public List<Address> saveAddresses(List<Address> address);
 
     public List<Address> getAddressByEmployeeId(int empId);
 }

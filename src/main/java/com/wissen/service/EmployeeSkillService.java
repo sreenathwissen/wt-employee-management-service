@@ -4,6 +4,8 @@ import com.wissen.entity.Employee;
 import com.wissen.entity.EmployeeSkill;
 import com.wissen.entity.Skill;
 
+import java.util.List;
+
 public interface EmployeeSkillService {
-    public EmployeeSkill saveEmployeeSkill(Employee employee, EmployeeSkill employeeSkill);
+    public List<EmployeeSkill> saveEmployeeSkills(List<EmployeeSkill> employeeSkillList);
 }
