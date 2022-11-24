@@ -1,9 +1,11 @@
 package com.wissen.controller;
 
 import com.wissen.dto.ProjectDTO;
+import com.wissen.entity.EmployeeProject;
 import com.wissen.entity.Project;
 import com.wissen.repository.ProjectRepository;
 import com.wissen.service.ProjectService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,24 +30,24 @@ public class ProjectController {
     private ProjectService projectService;
 
     @PostMapping
-    public ResponseEntity<String> saveProject(@RequestBody @NotEmpty(message = "Input client list cannot be empty.") final List<@Valid ProjectDTO> projects) {
+    public ResponseEntity<List<Project>> saveProject(@RequestBody @NotEmpty(message = "Input client list cannot be empty.") final List<@Valid ProjectDTO> projects) {
         log.info("START: Saving projects : {}", projects);
-        this.projectService.saveProjects(projects);
+        List<Project> savedData = this.projectService.saveProjects(projects);
         log.info("END: Saving projects");
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Saved projects successfully");
+                .body(savedData);
     }
 
     @PostMapping("/projectEmployeeMapping")
-    public ResponseEntity<String> saveProjectEmployeeMapping(@RequestParam @NotNull(message = "Project id is null") final int projectId,
-                                                             @RequestParam @NotNull(message = "Project id is null") final int employeeId,
-                                                             @RequestParam @NotNull(message = "DOJ id is null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate doj,
-                                                             @RequestParam @NotNull(message = "DOR id is null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate dor) {
+    public ResponseEntity<EmployeeProject> saveProjectEmployeeMapping(@RequestParam @NotNull(message = "Project id is null") final int projectId,
+                                                                             @RequestParam @NotNull(message = "Project id is null") final int employeeId,
+                                                                             @RequestParam @NotNull(message = "DOJ id is null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate doj,
+                                                                             @RequestParam @NotNull(message = "DOR id is null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate dor) {
         log.info("START: Saving projects employee mapping");
         log.info("Project id : {}, Employee id : {}, DOJ : {}, DOR : {} ", projectId, employeeId, doj, dor);
-        this.projectService.saveProjectEmployeeMapping(projectId, employeeId, doj, dor);
+        EmployeeProject savedData = this.projectService.saveProjectEmployeeMapping(projectId, employeeId, doj, dor);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Saved project to employee mapping successfully");
+                .body(savedData);
     }
 
     @GetMapping("/search")
@@ -64,5 +66,26 @@ public class ProjectController {
         log.info("START :  Getting project");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(project);
+    }
+
+    @GetMapping("/allProjects")
+    public ResponseEntity<List<Project>> getAllProject() {
+        log.info("START :  Getting all project");
+        List<Project> projects = this.projectService.getAllProjects();
+        log.info("END :  Getting all project");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(projects);
+    }
+
+    @GetMapping("/employee")
+    @ApiOperation("Get employee's projects")
+    public ResponseEntity<List<EmployeeProject>> getEmployeeProjectByEmployee(
+            @RequestParam @NotNull(message = "Employee id is null") int empId
+    ) {
+        log.info("START : Getting employee's projects");
+        List<EmployeeProject> employeeProjects = this.projectService.getEmployeeProjectByEmployeeId(empId);
+        log.info("END : Getting employee's projects");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeeProjects);
     }
 }

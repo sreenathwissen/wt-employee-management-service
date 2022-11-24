@@ -28,15 +28,15 @@ public class ProjectServiceImpl implements ProjectService {
     private EmployeeProjectRepository employeeProjectRepository;
 
     @Override
-    public void saveProjects(List<ProjectDTO> projects) {
+    public List<Project> saveProjects(List<ProjectDTO> projects) {
         List<Project> projectEntities = projects.parallelStream()
                 .map(project -> getProject(project))
                 .collect(Collectors.toList());
-        this.projectRepository.saveAll(projectEntities);
+        return this.projectRepository.saveAll(projectEntities);
     }
 
     @Override
-    public void saveProjectEmployeeMapping(int projectId, int employeeId, final LocalDate doj, final LocalDate dor) {
+    public EmployeeProject saveProjectEmployeeMapping(int projectId, int employeeId, final LocalDate doj, final LocalDate dor) {
         final EmployeeProject employeeProject = new EmployeeProject();
 
         Project project = new Project();
@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
         employeeProject.setEmployeeProjectId(employeeProjectId);
         employeeProject.setDojOnboarding(doj);
         employeeProject.setDorOnboarding(dor);
-        this.employeeProjectRepository.save(employeeProject);
+        return this.employeeProjectRepository.save(employeeProject);
     }
 
     @Override
@@ -62,6 +62,25 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project getProjectToClientDetailsByProjectId(int projectId) {
         return this.projectRepository.getProjectToClientDetailsByProjectId(projectId);
+    }
+
+    /**
+     * @author Vishal Tomar
+     * @description Method to fetch all projects.
+     * @return List of project.
+     */
+    @Override
+    public List<Project> getAllProjects() {
+        return this.projectRepository.findAll();
+    }
+
+    @Override
+    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId) {
+        Employee employee = new Employee();
+        employee.setEmpId(empId);
+        EmployeeProjectId employeeProjectId = new EmployeeProjectId();
+        employeeProjectId.setEmployee(employee);
+        return this.employeeProjectRepository.getEmployeeProjectByEmployeeProjectIdEmployee(employee);
     }
 
     private Project getProject(final ProjectDTO projectDTO) {

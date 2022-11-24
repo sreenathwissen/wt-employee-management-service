@@ -43,6 +43,11 @@ public class ClientServiceImpl implements ClientService {
         return null;
     }
 
+    @Override
+    public List<Client> getAllClients() {
+        return this.clientRepository.findAll();
+    }
+
     private Client getClient(final ClientDTO client) {
         Client clientEntity = new Client();
         clientEntity.setClientName(client.getClientName());

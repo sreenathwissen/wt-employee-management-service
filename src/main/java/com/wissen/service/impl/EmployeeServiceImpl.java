@@ -50,8 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeAccountService employeeAccountService;
 
-    @Autowired EmployeeProjectRepository employeeProjectRepository;
-
     public String createEmployee(Employee employee) {
         employee.setStatus("active");
         Designation designation = designationRepository.findByDesgName(employee.getDesignation().getDesgName());
@@ -226,15 +224,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployees() {
         return this.employeeRepository.findAll();
-    }
-
-    @Override
-    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId) {
-        Employee employee = new Employee();
-        employee.setEmpId(empId);
-        EmployeeProjectId employeeProjectId = new EmployeeProjectId();
-        employeeProjectId.setEmployee(employee);
-        return this.employeeProjectRepository.getEmployeeProjectByEmployeeProjectIdEmployee(employee);
     }
 
 }

@@ -11,4 +11,11 @@ public interface ClientService {
     public List<Client> searchClients(final String searchString);
 
     public Client getClientById(final int clientId);
+
+    /**
+     * @author Vishal Tomar
+     * @description Method to fetch all clients.
+     * @return List of clients.
+     */
+    public List<Client> getAllClients();
 }

@@ -81,15 +81,4 @@ public class EmployeeController {
                 .body(employees);
     }
 
-    @GetMapping("/project")
-    @ApiOperation("Get employee's projects")
-    public ResponseEntity<List<EmployeeProject>> getEmployeeProjectByEmployee(
-            @RequestParam @NotNull(message = "Employee id is null") int empId
-    ) {
-        log.info("START : Getting employee's projects");
-        List<EmployeeProject> employeeProjects = this.service.getEmployeeProjectByEmployeeId(empId);
-        log.info("END : Getting employee's projects");
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(employeeProjects);
-    }
 }
