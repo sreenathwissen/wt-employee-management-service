@@ -17,6 +17,8 @@ public interface ProjectService {
 
     public Project getProjectToClientDetailsByProjectId(final int projectId);
 
+    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId);
+
     /**
      * @author Vishal Tomar
      * @description Method to fetch all projects.

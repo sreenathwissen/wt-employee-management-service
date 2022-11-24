@@ -21,6 +21,4 @@ public interface EmployeeService {
     public List<EmployeeSaveResponse> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList);
 
     public List<Employee> getEmployees();
-
-    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId);
 }

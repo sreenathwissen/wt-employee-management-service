@@ -5,6 +5,7 @@ import com.wissen.entity.EmployeeProject;
 import com.wissen.entity.Project;
 import com.wissen.repository.ProjectRepository;
 import com.wissen.service.ProjectService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -74,5 +75,17 @@ public class ProjectController {
         log.info("END :  Getting all project");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(projects);
+    }
+
+    @GetMapping("/employee")
+    @ApiOperation("Get employee's projects")
+    public ResponseEntity<List<EmployeeProject>> getEmployeeProjectByEmployee(
+            @RequestParam @NotNull(message = "Employee id is null") int empId
+    ) {
+        log.info("START : Getting employee's projects");
+        List<EmployeeProject> employeeProjects = this.projectService.getEmployeeProjectByEmployeeId(empId);
+        log.info("END : Getting employee's projects");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeeProjects);
     }
 }

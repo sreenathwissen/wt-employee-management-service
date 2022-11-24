@@ -74,6 +74,15 @@ public class ProjectServiceImpl implements ProjectService {
         return this.projectRepository.findAll();
     }
 
+    @Override
+    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId) {
+        Employee employee = new Employee();
+        employee.setEmpId(empId);
+        EmployeeProjectId employeeProjectId = new EmployeeProjectId();
+        employeeProjectId.setEmployee(employee);
+        return this.employeeProjectRepository.getEmployeeProjectByEmployeeProjectIdEmployee(employee);
+    }
+
     private Project getProject(final ProjectDTO projectDTO) {
         Project project = new Project();
         project.setProjectName(projectDTO.getProjectName());
