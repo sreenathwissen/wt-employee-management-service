@@ -50,4 +50,18 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(client);
     }
+
+    /**
+     * @author Vishal Tomar
+     * @description Method to fetch all clients.
+     * @return List of clients.
+     */
+    @GetMapping("/allClients")
+    public ResponseEntity<List<Client>> getAllClients() {
+        log.info("START: Getting all client");
+        List<Client> clients = this.clientService.getAllClients();
+        log.info("START: Getting all client");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(clients);
+    }
 }
