@@ -1,6 +1,7 @@
 package com.wissen.controller;
 
 import com.wissen.dto.EmployeeDetailDTO;
+import com.wissen.dto.EmployeeSearchDTO;
 import com.wissen.entity.Employee;
 import com.wissen.entity.EmployeeProject;
 import com.wissen.helper.ExcelHelper;
@@ -81,4 +82,18 @@ public class EmployeeController {
                 .body(employees);
     }
 
+    /**
+     * @autor Vishal Tomar
+     * @description Method to search employee.
+     * @param searchString
+     * @return list of employeeSearch dto
+     */
+    @GetMapping("/search")
+    public ResponseEntity<List<EmployeeSearchDTO> > searchEmployee(@RequestParam final String searchString) {
+        log.info("START : Searching all employees");
+        List<EmployeeSearchDTO> employeesSearchDTOs = this.service.searchEmployee(searchString);
+        log.info("END : Searching all employees");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeesSearchDTOs);
+    }
 }

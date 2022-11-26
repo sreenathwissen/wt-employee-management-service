@@ -20,12 +20,12 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     @Override
-    public void saveClients(final List<ClientDTO> clients) {
+    public List<Client> saveClients(final List<ClientDTO> clients) {
         List<Client> clientEntities = clients.parallelStream()
                 .map(client -> getClient(client))
                 .collect(Collectors.toList());
 
-        this.clientRepository.saveAll(clientEntities);
+        return this.clientRepository.saveAll(clientEntities);
     }
 
     @Override

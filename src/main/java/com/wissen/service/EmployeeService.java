@@ -1,6 +1,7 @@
 package com.wissen.service;
 
 import com.wissen.dto.EmployeeDetailDTO;
+import com.wissen.dto.EmployeeSearchDTO;
 import com.wissen.entity.Employee;
 import com.wissen.response.EmployeeSaveResponse;
 import com.wissen.entity.EmployeeProject;
@@ -21,4 +22,11 @@ public interface EmployeeService {
     public List<EmployeeSaveResponse> saveEmployeeDetails(List<EmployeeDetailDTO> employeeDetailDTOList);
 
     public List<Employee> getEmployees();
+
+    /**
+     * @author Vishal Tomar
+     * @description Method to search employee.
+     * @return List of search employee.
+     */
+    public List<EmployeeSearchDTO> searchEmployee(String searchString);
 }
