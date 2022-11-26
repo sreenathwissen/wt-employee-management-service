@@ -2,12 +2,9 @@ package com.wissen.controller;
 
 import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.entity.Employee;
-import com.wissen.entity.EmployeeProject;
 import com.wissen.helper.ExcelHelper;
 import com.wissen.response.EmployeeSaveResponse;
-import com.wissen.response.EmployeeSkillResponse;
 import com.wissen.service.EmployeeService;
-import com.wissen.service.impl.EmployeeServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
