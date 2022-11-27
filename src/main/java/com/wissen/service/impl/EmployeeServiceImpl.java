@@ -237,4 +237,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .build();})
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Employee getEmployee(int employeeId) {
+        return this.employeeRepository.findById(employeeId).get();
+    }
+
+
 }

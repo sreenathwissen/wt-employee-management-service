@@ -29,4 +29,7 @@ public interface EmployeeService {
      * @return List of search employee.
      */
     public List<EmployeeSearchDTO> searchEmployee(String searchString);
+
+    public Employee getEmployee(int employeeId);
+
 }
