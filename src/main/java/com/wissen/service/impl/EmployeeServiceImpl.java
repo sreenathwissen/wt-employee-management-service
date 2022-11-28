@@ -2,6 +2,7 @@ package com.wissen.service.impl;
 
 
 import com.wissen.dto.EmployeeDetailDTO;
+import com.wissen.dto.EmployeeSearchDTO;
 import com.wissen.entity.*;
 import com.wissen.entity.key.EmployeeProjectId;
 import com.wissen.exception.EmployeeNotFoundException;
@@ -226,4 +227,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return this.employeeRepository.findAll();
     }
 
+    @Override
+    public List<EmployeeSearchDTO> searchEmployee(String searchString) {
+        List<Employee> employees = this.employeeRepository.searchEmployee(searchString);
+        return employees.parallelStream().map(employee -> {
+            return EmployeeSearchDTO.builder()
+                .Name(employee.getFirstName() + " " + employee.getLastName())
+                .id(employee.getEmpId())
+                .build();})
+                .collect(Collectors.toList());
+    }
 }

@@ -25,12 +25,12 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<String> saveClient(@RequestBody @NotEmpty(message = "Input client list cannot be empty.") final List<@Valid ClientDTO> clients) {
+    public ResponseEntity<List<Client>> saveClient(@RequestBody @NotEmpty(message = "Input client list cannot be empty.") final List<@Valid ClientDTO> clients) {
         log.info("START: Saving clients : {}", clients);
-        this.clientService.saveClients(clients);
+        List<Client> savedClients = this.clientService.saveClients(clients);
         log.info("END: Saving clients");
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Saved clients successfully");
+                .body(savedClients);
     }
 
     @GetMapping("/search")
