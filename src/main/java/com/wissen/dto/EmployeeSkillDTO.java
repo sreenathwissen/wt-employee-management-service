@@ -1,6 +1,5 @@
 package com.wissen.dto;
 
-import com.wissen.enums.Levels;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +17,5 @@ public class EmployeeSkillDTO {
     @NotEmpty(message = "Skill name can not be empty.")
     String skillName;
 
-    Levels levels;
+    int levels;
 }

@@ -1,7 +1,6 @@
 package com.wissen.entity;
 
 import com.wissen.entity.key.EmployeeSkillId;
-import com.wissen.enums.Levels;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,6 @@ import javax.persistence.*;
 public class EmployeeSkill {
     @EmbeddedId
     EmployeeSkillId employeeSkillId;
-    Levels levels;
+    int levels;
 }
 
