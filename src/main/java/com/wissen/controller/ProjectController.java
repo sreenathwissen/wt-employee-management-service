@@ -42,7 +42,7 @@ public class ProjectController {
     public ResponseEntity<EmployeeProject> saveProjectEmployeeMapping(@RequestParam @NotNull(message = "Project id is null") final int projectId,
                                                                              @RequestParam @NotNull(message = "Project id is null") final int employeeId,
                                                                              @RequestParam @NotNull(message = "DOJ id is null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate doj,
-                                                                             @RequestParam @NotNull(message = "DOR id is null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate dor) {
+                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate dor) {
         log.info("START: Saving projects employee mapping");
         log.info("Project id : {}, Employee id : {}, DOJ : {}, DOR : {} ", projectId, employeeId, doj, dor);
         EmployeeProject savedData = this.projectService.saveProjectEmployeeMapping(projectId, employeeId, doj, dor);

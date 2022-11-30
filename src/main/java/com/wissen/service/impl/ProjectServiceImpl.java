@@ -45,10 +45,9 @@ public class ProjectServiceImpl implements ProjectService {
         employee.setEmpId(employeeId);
 
         final EmployeeProjectId employeeProjectId = new EmployeeProjectId();
-        employeeProjectId.setProject(project);
-        employeeProjectId.setEmployee(employee);
+        employeeProject.setProject(project);
+        employeeProject.setEmployee(employee);
 
-        employeeProject.setEmployeeProjectId(employeeProjectId);
         employeeProject.setDojOnboarding(doj);
         employeeProject.setDorOnboarding(dor);
         return this.employeeProjectRepository.save(employeeProject);
@@ -80,7 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
         employee.setEmpId(empId);
         EmployeeProjectId employeeProjectId = new EmployeeProjectId();
         employeeProjectId.setEmployee(employee);
-        return this.employeeProjectRepository.getEmployeeProjectByEmployeeProjectIdEmployee(employee);
+        return this.employeeProjectRepository.getEmployeeProjectByEmployee(employee);
     }
 
     private Project getProject(final ProjectDTO projectDTO) {

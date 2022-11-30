@@ -196,19 +196,23 @@ public class EmployeeServiceImpl implements EmployeeService {
                     employeeSaveResponse.setEmployeeResponse(employeeResponse);
 
                     //Saving Employee Address
-                    List<Address> addressList = dto.getAddressDTOList().parallelStream().map(addressDTO ->
-                            EmployeeUtil.getAddressEntity(addressDTO, employee)).collect(Collectors.toList());
-                    List<Address> saveAddresses = this.addressService.saveAddresses(addressList);
-                    List<AddressResponse> addressResponseList = EmployeeUtil.getAddressResponseList(saveAddresses);
-                    employeeSaveResponse.setAddressResponse(addressResponseList);
+                    if(Objects.nonNull(dto.getAddressDTOList()) && !dto.getAddressDTOList().isEmpty()) {
+                        List<Address> addressList = dto.getAddressDTOList().parallelStream().map(addressDTO ->
+                                EmployeeUtil.getAddressEntity(addressDTO, employee)).collect(Collectors.toList());
+                        List<Address> saveAddresses = this.addressService.saveAddresses(addressList);
+                        List<AddressResponse> addressResponseList = EmployeeUtil.getAddressResponseList(saveAddresses);
+                        employeeSaveResponse.setAddressResponse(addressResponseList);
+                    }
 
                     //Saving Employee Skill
-                    List<EmployeeSkill> employeeSkillList = dto.getEmployeeSkillDTOList().parallelStream().map(employeeSkillDTO ->
-                            EmployeeUtil.getEmployeeSkillEntity(employeeSkillDTO, employee)).collect(Collectors.toList());
-                    List<EmployeeSkill> employeeSkill = this.employeeSkillService
-                            .saveEmployeeSkills(employeeSkillList);
-                    List<EmployeeSkillResponse> employeeSkillResponseList = EmployeeUtil.getEmployeeSkillResponse(employeeSkill);
-                    employeeSaveResponse.setEmployeeSkillResponse(employeeSkillResponseList);
+                    if(Objects.nonNull(dto.getEmployeeSkillDTOList()) && !dto.getEmployeeSkillDTOList().isEmpty()) {
+                        List<EmployeeSkill> employeeSkillList = dto.getEmployeeSkillDTOList().parallelStream().map(employeeSkillDTO ->
+                                EmployeeUtil.getEmployeeSkillEntity(employeeSkillDTO, employee)).collect(Collectors.toList());
+                        List<EmployeeSkill> employeeSkill = this.employeeSkillService
+                                .saveEmployeeSkills(employeeSkillList);
+                        List<EmployeeSkillResponse> employeeSkillResponseList = EmployeeUtil.getEmployeeSkillResponse(employeeSkill);
+                        employeeSaveResponse.setEmployeeSkillResponse(employeeSkillResponseList);
+                    }
 
                     //Saving Employee Account
                     EmployeeAccount employeeAccount = this.employeeAccountService

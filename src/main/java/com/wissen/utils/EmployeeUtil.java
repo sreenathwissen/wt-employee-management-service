@@ -84,11 +84,9 @@ public final class EmployeeUtil {
         skill.setSkillId(employeeSkillDTO.getSkillId());
         skill.setSkillName(employeeSkillDTO.getSkillName());
 
-        EmployeeSkillId employeeSkillId = new EmployeeSkillId();
-        employeeSkillId.setEmployee(employee);
-        employeeSkillId.setSkill(skill);
+        employeeSkill.setEmployee(employee);
+        employeeSkill.setSkill(skill);
 
-        employeeSkill.setEmployeeSkillId(employeeSkillId);
         employeeSkill.setLevels(employeeSkillDTO.getLevels());
 
         return employeeSkill;
@@ -159,8 +157,8 @@ public final class EmployeeUtil {
         List<EmployeeSkillResponse> employeeSkillResponseList = new ArrayList<>();
         for(int i=0; i<employeeSkillList.size(); i++){
             EmployeeSkillResponse employeeSkillResponse = new EmployeeSkillResponse();
-            employeeSkillResponse.setEmpId(employeeSkillList.get(i).getEmployeeSkillId().getEmployee().getEmpId());
-            employeeSkillResponse.setSkill(employeeSkillList.get(i).getEmployeeSkillId().getSkill());
+            employeeSkillResponse.setEmpId(employeeSkillList.get(i).getEmployee().getEmpId());
+            employeeSkillResponse.setSkill(employeeSkillList.get(i).getSkill());
             employeeSkillResponse.setLevels(employeeSkillList.get(i).getLevels());
             employeeSkillResponseList.add(employeeSkillResponse);
         }
