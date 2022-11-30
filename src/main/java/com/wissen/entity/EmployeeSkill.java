@@ -1,6 +1,5 @@
 package com.wissen.entity;
 
-import com.wissen.entity.key.EmployeeSkillId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,20 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "employee_skill")
 public class EmployeeSkill {
-    @EmbeddedId
-    EmployeeSkillId employeeSkillId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_skill_id")
+    int employeeSkillId;
+
     int levels;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "emp_id")
+    Employee employee;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "skill_id")
+    Skill skill;
 }
 
