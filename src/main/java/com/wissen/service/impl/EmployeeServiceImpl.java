@@ -4,7 +4,6 @@ package com.wissen.service.impl;
 import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.dto.EmployeeSearchDTO;
 import com.wissen.entity.*;
-import com.wissen.entity.key.EmployeeProjectId;
 import com.wissen.exception.EmployeeNotFoundException;
 import com.wissen.repository.*;
 import com.wissen.response.*;

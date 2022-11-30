@@ -3,7 +3,6 @@ package com.wissen.utils;
 import com.wissen.dto.*;
 import com.wissen.entity.*;
 import com.wissen.entity.key.EmployeeAccountId;
-import com.wissen.entity.key.EmployeeSkillId;
 import com.wissen.response.*;
 
 import java.util.ArrayList;

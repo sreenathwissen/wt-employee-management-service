@@ -5,7 +5,6 @@ import com.wissen.entity.Client;
 import com.wissen.entity.Employee;
 import com.wissen.entity.EmployeeProject;
 import com.wissen.entity.Project;
-import com.wissen.entity.key.EmployeeProjectId;
 import com.wissen.repository.EmployeeProjectRepository;
 import com.wissen.repository.ProjectRepository;
 import com.wissen.service.ProjectService;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +41,6 @@ public class ProjectServiceImpl implements ProjectService {
         Employee employee = new Employee();
         employee.setEmpId(employeeId);
 
-        final EmployeeProjectId employeeProjectId = new EmployeeProjectId();
         employeeProject.setProject(project);
         employeeProject.setEmployee(employee);
 
@@ -77,8 +73,6 @@ public class ProjectServiceImpl implements ProjectService {
     public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId) {
         Employee employee = new Employee();
         employee.setEmpId(empId);
-        EmployeeProjectId employeeProjectId = new EmployeeProjectId();
-        employeeProjectId.setEmployee(employee);
         return this.employeeProjectRepository.getEmployeeProjectByEmployee(employee);
     }
 
