@@ -52,4 +52,17 @@ public class EmployeeSkillServiceImpl implements EmployeeSkillService {
         employeeSkill.setLevels(levels);
         return this.employeeSkillRepository.save(employeeSkill);
     }
+
+    @Override
+    public List<EmployeeSkill> getSkillEmployeeMapping(int employeeId) {
+        Employee employee = new Employee();
+        employee.setEmpId(employeeId);
+        return this.employeeSkillRepository.getEmployeeSkillByEmployee(employee);
+    }
+
+    @Override
+    public String deleteSkillEmployeeMapping(int employeeSkillId) {
+        this.employeeSkillRepository.deleteById(employeeSkillId);
+        return "Deleted successfully";
+    }
 }

@@ -30,6 +30,11 @@ public class SkillController {
     @Autowired
     private EmployeeSkillService employeeSkillService;
 
+    /**
+     * @author Anushka Saxena
+     * @param skills
+     * @return Save skill
+     */
     @PostMapping
     public ResponseEntity<List<Skill>> saveSkill(@RequestBody @NotEmpty(message = "Skill list is empty") final List<String> skills){
         log.info("Starting to save Skills");
@@ -45,7 +50,7 @@ public class SkillController {
      * @param levels
      * @return Employee Skill
      */
-    @PostMapping("/skillEmployeeMapping")
+    @PostMapping("/saveSkillEmployeeMapping")
     public ResponseEntity<EmployeeSkill> saveSkillEmployeeMapping(@RequestParam @NotNull(message = "Skill id is null") final int skillId,
                                                                   @RequestParam @NotNull(message = "Employee id is null") final int employeeId,
                                                                   @RequestParam @NotNull(message = "Level is null") final int levels){
@@ -64,7 +69,7 @@ public class SkillController {
      * @param employeeSkillId
      * @return Update employee skill
      */
-    @PutMapping("/skillEmployeeMapping")
+    @PutMapping("/updateSkillEmployeeMapping")
     public ResponseEntity<EmployeeSkill> updateSkillEmployeeMapping(@RequestParam @NotNull(message = "Skill id is null") final int skillId,
                                                                   @RequestParam @NotNull(message = "Employee id is null") final int employeeId,
                                                                   @RequestParam @NotNull(message = "Employee skill id is null") final int employeeSkillId,
@@ -76,6 +81,25 @@ public class SkillController {
                 .body(employeeSkill);
     }
 
+    /**
+     * @author Anushka Saxena
+     * @param employeeId
+     * @return Get employee skills
+     */
+    @GetMapping("/getSkillEmployeeMapping")
+    public ResponseEntity<List<EmployeeSkill>> getSkillEmployeeMapping(@RequestParam @NotNull(message = "Employee id is null") int employeeId){
+        log.info("START: Get employee skills");
+        List<EmployeeSkill> employeeSkillList = this.employeeSkillService.getSkillEmployeeMapping(employeeId);
+        log.info("END: Fetched employee skills");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeeSkillList);
+    }
+
+    /**
+     * @author Anushka Saxena
+     * @param skill
+     * @return Search skills
+     */
     @GetMapping("/search")
     public ResponseEntity<List<Skill>> searchSkills(@RequestParam final String skill) {
         log.info("START: Getting skills");
@@ -85,14 +109,29 @@ public class SkillController {
                 .body(skills);
     }
 
+    /**
+     * @author Anushka Saxena
+     * @return Fetch all skills
+     */
     @GetMapping
     public List<Skill> getAllSkills(){
         log.info("Starting to fetch the skills");
         return skillService.getAllSkills();
     }
 
+    /**
+     * @author Anushka Saxena
+     * @param id
+     * @return Fetch skill by id
+     */
     @GetMapping({"/{id}"})
     public ResponseEntity<Skill> getSkillById(@PathVariable int id){
         return new ResponseEntity<>(skillService.getSkillById(id),HttpStatus.OK);
     }
+
+    @DeleteMapping("/deleteEmployeeSkill")
+    public ResponseEntity<String> deleteEmployeeSkill(@RequestParam @NotNull(message = "Employee Skill id is null") int employeeSkillId){
+        return new ResponseEntity<String>(employeeSkillService.deleteSkillEmployeeMapping(employeeSkillId), HttpStatus.OK);
+    }
+
 }

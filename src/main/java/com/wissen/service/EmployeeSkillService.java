@@ -27,4 +27,18 @@ public interface EmployeeSkillService {
      * @return Update Level of employee Skill
      */
     public EmployeeSkill updateSkillEmployeeMapping(final int skillId, final int employeeId, final int employeeSkillId, final int levels);
+
+    /**
+     * @author Anushka Saxena
+     * @param employeeId
+     * @return Employee Skill
+     */
+    public List<EmployeeSkill> getSkillEmployeeMapping(int employeeId);
+
+    /**
+     * @author Anushka Saxena
+     * @param employeeSkillId
+     * @return Delete Employee Skill
+     */
+    public String deleteSkillEmployeeMapping(int employeeSkillId);
 }
