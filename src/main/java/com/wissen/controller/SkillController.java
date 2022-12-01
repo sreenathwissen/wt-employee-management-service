@@ -129,6 +129,11 @@ public class SkillController {
         return new ResponseEntity<>(skillService.getSkillById(id),HttpStatus.OK);
     }
 
+    /**
+     * @author Anushka Saxena
+     * @param employeeSkillId
+     * @return delete an employee skill
+     */
     @DeleteMapping("/deleteEmployeeSkill")
     public ResponseEntity<String> deleteEmployeeSkill(@RequestParam @NotNull(message = "Employee Skill id is null") int employeeSkillId){
         return new ResponseEntity<String>(employeeSkillService.deleteSkillEmployeeMapping(employeeSkillId), HttpStatus.OK);
