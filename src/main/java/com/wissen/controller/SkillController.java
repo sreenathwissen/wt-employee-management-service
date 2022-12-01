@@ -38,6 +38,13 @@ public class SkillController {
                 .body(savedSkills);
     }
 
+    /**
+     * @author Anushka Saxena
+     * @param skillId
+     * @param employeeId
+     * @param levels
+     * @return Employee Skill
+     */
     @PostMapping("/skillEmployeeMapping")
     public ResponseEntity<EmployeeSkill> saveSkillEmployeeMapping(@RequestParam @NotNull(message = "Skill id is null") final int skillId,
                                                                   @RequestParam @NotNull(message = "Employee id is null") final int employeeId,
@@ -45,6 +52,26 @@ public class SkillController {
         log.info("START: Saving skill employee mapping");
         log.info("Skill id: {}, Employee id: {}, level: {}", skillId, employeeId, levels);
         EmployeeSkill employeeSkill = this.employeeSkillService.saveSkillEmployeeMapping(skillId, employeeId, levels);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeeSkill);
+    }
+
+    /**
+     * @author Anushka Saxena
+     * @param skillId
+     * @param employeeId
+     * @param levels
+     * @param employeeSkillId
+     * @return Update employee skill
+     */
+    @PutMapping("/skillEmployeeMapping")
+    public ResponseEntity<EmployeeSkill> updateSkillEmployeeMapping(@RequestParam @NotNull(message = "Skill id is null") final int skillId,
+                                                                  @RequestParam @NotNull(message = "Employee id is null") final int employeeId,
+                                                                  @RequestParam @NotNull(message = "Employee skill id is null") final int employeeSkillId,
+                                                                  @RequestParam @NotNull(message = "Level is null") final int levels){
+        log.info("START: Saving skill employee mapping");
+        log.info("Skill id: {}, Employee id: {}, level: {}", skillId, employeeId, levels);
+        EmployeeSkill employeeSkill = this.employeeSkillService.updateSkillEmployeeMapping(skillId, employeeId, employeeSkillId, levels);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employeeSkill);
     }

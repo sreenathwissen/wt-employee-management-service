@@ -36,4 +36,20 @@ public class EmployeeSkillServiceImpl implements EmployeeSkillService {
         employeeSkill.setLevels(levels);
         return this.employeeSkillRepository.save(employeeSkill);
     }
+
+    @Override
+    public EmployeeSkill updateSkillEmployeeMapping(int skillId, int employeeId, int employeeSkillId, int levels) {
+        final EmployeeSkill employeeSkill = new EmployeeSkill();
+
+        Skill skill = new Skill();
+        skill.setSkillId(skillId);
+        Employee employee = new Employee();
+        employee.setEmpId(employeeId);
+
+        employeeSkill.setSkill(skill);
+        employeeSkill.setEmployee(employee);
+        employeeSkill.setEmployeeSkillId(employeeSkillId);
+        employeeSkill.setLevels(levels);
+        return this.employeeSkillRepository.save(employeeSkill);
+    }
 }
