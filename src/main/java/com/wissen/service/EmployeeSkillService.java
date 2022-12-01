@@ -7,6 +7,12 @@ import com.wissen.entity.Skill;
 import java.util.List;
 
 public interface EmployeeSkillService {
+
+    /**
+     * @author Anushka Saxena
+     * @param employeeSkillList
+     * @return save employee skills
+     */
     public List<EmployeeSkill> saveEmployeeSkills(List<EmployeeSkill> employeeSkillList);
 
     /**
