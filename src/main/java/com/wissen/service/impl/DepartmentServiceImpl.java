@@ -50,4 +50,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department getDepartmentById(int id){
         return departmentRepository.findById(id).get();
     }
+
+    @Override
+    public Department getDepartmentByDepName(String name) {
+        return departmentRepository.getDepartmentByDepName(name);
+    }
 }

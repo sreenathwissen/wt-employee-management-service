@@ -11,4 +11,6 @@ public interface DepartmentRepository  extends JpaRepository<Department, Integer
 
     @Query("SELECT c FROM Department c WHERE c.depName LIKE CONCAT('%',:searchString, '%')")
     public List<Department> getDepartmentByPattern(String searchString);
+
+    public Department getDepartmentByDepName(String depName);
 }

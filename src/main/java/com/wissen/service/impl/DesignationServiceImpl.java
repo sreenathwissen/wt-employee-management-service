@@ -48,5 +48,10 @@ public class DesignationServiceImpl implements DesignationService {
     public Designation getDesignationById(int id){
         return designationRepository.findById(id).get();
     }
+
+    @Override
+    public Designation getDesignationByName(String name) {
+        return this.designationRepository.getDesignationByDesgName(name);
+    }
 }
 

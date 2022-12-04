@@ -17,4 +17,7 @@ public interface RoleService {
      * @return List of roles.
      */
     public List<Role> getAllRoles();
+
+
+    public Role getRoleByName(String name);
 }
