@@ -29,4 +29,11 @@ public class BulkUploadController {
         return ResponseEntity.status(HttpStatus.OK)
             .body("Saved successfully.");
     }
+
+    @PostMapping(path = "/validate")
+    public ResponseEntity<String> validateBulkUpload(@RequestPart(required = true) MultipartFile dataFile) {
+        this.bulkUploadService.validateExcel(dataFile);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("validated successfully.");
+    }
 }

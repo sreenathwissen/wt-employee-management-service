@@ -37,4 +37,11 @@ public class CentralExceptionHandler {
         final List<String> errors= ex.getConstraintViolations().stream().map(e -> e.getMessage()).collect(Collectors.toList());
         return errors;
     }
+
+    @ExceptionHandler(EmployeeExcelValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleEmployeeExcelValidationException(EmployeeExcelValidationException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
+    }
 }

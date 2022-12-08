@@ -39,9 +39,7 @@ public class DesignationServiceImpl implements DesignationService {
 
     @Override
     public List<Designation> getAllDesignation(){
-        List<Designation> designations = new ArrayList<Designation>();
-        designationRepository.findAll().forEach(designation -> designations.add(designation));
-        return designations;
+        return designationRepository.findAll();
     }
 
     @Override

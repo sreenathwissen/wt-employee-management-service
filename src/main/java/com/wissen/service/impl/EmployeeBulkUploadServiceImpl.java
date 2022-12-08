@@ -14,6 +14,7 @@ import com.wissen.service.DepartmentService;
 import com.wissen.service.DesignationService;
 import com.wissen.service.RoleService;
 import com.wissen.utils.ExcelUtil;
+import com.wissen.validate.BulkUploadValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -42,8 +43,12 @@ public class EmployeeBulkUploadServiceImpl implements BulkUploadService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private BulkUploadValidation employeeBulkUploadValidation;
+
     @Override
     public void bulkUploadToDb(MultipartFile dataFile) {
+        this.employeeBulkUploadValidation.validate(dataFile);
         try {
             List<Employee> employeeList = new ArrayList<>();
             XSSFWorkbook workBook = new XSSFWorkbook(dataFile.getInputStream());
@@ -65,6 +70,11 @@ public class EmployeeBulkUploadServiceImpl implements BulkUploadService {
         } catch (Exception e) {
 
         }
+    }
+
+    @Override
+    public void validateExcel(MultipartFile dataFile) {
+        this.employeeBulkUploadValidation.validate(dataFile);
     }
 
     private void setEmployeeValue(String header, Employee employee, Cell cell) {
