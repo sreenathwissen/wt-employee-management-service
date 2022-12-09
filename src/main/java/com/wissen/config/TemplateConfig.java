@@ -11,6 +11,10 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 public class TemplateConfig {
 
+    /**
+     * Bean to read from the templates folder for sending email
+     * @return
+     */
     @Bean
     public SpringTemplateEngine springTemplateEngine() {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();

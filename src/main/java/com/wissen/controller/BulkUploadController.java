@@ -23,17 +23,27 @@ public class BulkUploadController {
     @Qualifier("EmployeeBulkUpload")
     private BulkUploadService bulkUploadService;
 
+    /**
+     * API to load employee Data from the Excel file and also it validates the records
+     * @param dataFile
+     * @return String with Save Status
+     */
     @PostMapping(path = "/employee")
     public ResponseEntity<String> employeeInfoBulkUpload(@RequestPart(required = true) MultipartFile dataFile) {
+        log.debug("Load the Excel data to the data base by validating the data");
         this.bulkUploadService.bulkUploadToDb(dataFile);
-        return ResponseEntity.status(HttpStatus.OK)
-            .body("Saved successfully.");
+        return ResponseEntity.status(HttpStatus.OK).body("Saved successfully.");
     }
 
+    /**
+     * API to validate the Excel file and data
+     * @param dataFile
+     * @return
+     */
     @PostMapping(path = "/validate")
     public ResponseEntity<String> validateBulkUpload(@RequestPart(required = true) MultipartFile dataFile) {
+        log.debug("Validate the excel payload");
         this.bulkUploadService.validateExcel(dataFile);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("validated successfully.");
+        return ResponseEntity.status(HttpStatus.OK).body("validated successfully.");
     }
 }

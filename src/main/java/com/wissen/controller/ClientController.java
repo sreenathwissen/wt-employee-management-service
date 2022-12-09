@@ -24,31 +24,43 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
+    /**
+     * API to save Client if it doesn't exist in database
+     * @param clients
+     * @return saved Client response list
+     */
     @PostMapping
-    public ResponseEntity<List<Client>> saveClient(@RequestBody @NotEmpty(message = "Input client list cannot be empty.") final List<@Valid ClientDTO> clients) {
-        log.info("START: Saving clients : {}", clients);
+    public ResponseEntity<List<Client>> saveClient(@RequestBody @NotEmpty(message = "Client list cannot be empty. Provide a valid Client list") final List<@Valid ClientDTO> clients) {
+        log.debug("Saving clients : {}", clients);
         List<Client> savedClients = this.clientService.saveClients(clients);
-        log.info("END: Saving clients");
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(savedClients);
+        log.debug("Saved clients response {}",savedClients);
+        return ResponseEntity.status(HttpStatus.OK).body(savedClients);
     }
 
+    /**
+     * API to search Client Name based on the input string feed
+     * @param clientName
+     * @return list of the client matching the search string
+     */
     @GetMapping("/search")
     public ResponseEntity<List<Client>> searchClients(@RequestParam final String clientName) {
-        log.info("START: Getting clients");
-        List<Client> clients = this.clientService.searchClients(clientName);
-        log.info("START: Getting clients");
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(clients);
+        log.debug("Fetching the clients based on the input text {}", clientName);
+        List<Client> clientsList = this.clientService.searchClients(clientName);
+        log.debug("List of clients matching the search String {}", clientsList);
+        return ResponseEntity.status(HttpStatus.OK).body(clientsList);
     }
 
+    /**
+     * API to fech Client details based on ID
+     * @param clientId
+     * @return Client Details
+     */
     @GetMapping
     public ResponseEntity<Client> getClientsId(@RequestParam @NotNull(message = "Client id is null") final int clientId) {
-        log.info("START: Getting client");
+        log.debug("Fetching the clients based for Client_ID {}", clientId);
         Client client = this.clientService.getClientById(clientId);
-        log.info("START: Getting client");
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(client);
+        log.debug("Client Response for the ID {} is {}", clientId, client);
+        return ResponseEntity.status(HttpStatus.OK).body(client);
     }
 
     /**
@@ -58,10 +70,9 @@ public class ClientController {
      */
     @GetMapping("/allClients")
     public ResponseEntity<List<Client>> getAllClients() {
-        log.info("START: Getting all client");
-        List<Client> clients = this.clientService.getAllClients();
-        log.info("START: Getting all client");
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(clients);
+        log.debug("Fetching all clients");
+        List<Client> clientsList = this.clientService.getAllClients();
+        log.debug("All clients Response is {}", clientsList);
+        return ResponseEntity.status(HttpStatus.OK).body(clientsList);
     }
 }
