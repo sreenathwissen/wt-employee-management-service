@@ -7,4 +7,6 @@ import java.util.List;
 public interface BulkUploadService {
 
     public void bulkUploadToDb(MultipartFile dataFile);
+
+    public void validateExcel(MultipartFile dataFile);
 }
