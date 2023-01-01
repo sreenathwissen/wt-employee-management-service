@@ -10,12 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation class for department related things.
+ */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Department> saveDepartments (final List<String> departments){
         List<Department> departmentEntities = departments.stream()
@@ -25,6 +31,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         return this.departmentRepository.saveAll(departmentEntities);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Department> searchDepartments(String searchString) {
         List<Department> departments = new ArrayList<>();
@@ -39,16 +48,25 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentEntity;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Department> getAllDepartments(){
         return departmentRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Department getDepartmentById(int id){
         return departmentRepository.findById(id).get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Department getDepartmentByDepName(String name) {
         return departmentRepository.getDepartmentByDepName(name);

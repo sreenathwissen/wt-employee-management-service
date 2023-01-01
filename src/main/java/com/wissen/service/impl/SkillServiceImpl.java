@@ -1,7 +1,5 @@
 package com.wissen.service.impl;
 
-import com.wissen.entity.Department;
-import com.wissen.entity.Designation;
 import com.wissen.entity.Skill;
 import com.wissen.repository.SkillRespository;
 import com.wissen.service.SkillService;
@@ -12,12 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation class for skill related things.
+ */
 @Service
 public class SkillServiceImpl implements SkillService {
 
     @Autowired
     SkillRespository skillRespository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Skill> saveSkills (final List<String> skills){
         List<Skill> skillEntities = skills.stream()
@@ -27,6 +31,9 @@ public class SkillServiceImpl implements SkillService {
         return this.skillRespository.saveAll(skillEntities);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Skill> searchSkills(String searchString) {
         List<Skill> skills = new ArrayList<>();
@@ -41,6 +48,9 @@ public class SkillServiceImpl implements SkillService {
         return skillEntity;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Skill> getAllSkills(){
         List<Skill> skills = new ArrayList<Skill>();
@@ -48,6 +58,9 @@ public class SkillServiceImpl implements SkillService {
         return skills;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Skill getSkillById(int id){
         return skillRespository.findById(id).get();

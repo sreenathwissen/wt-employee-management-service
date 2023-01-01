@@ -12,6 +12,11 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import java.util.*;
 
+/**
+ * Method to schedule emails.
+ *
+ * @author Vishal Tomar
+ */
 @Component
 public class EmailScheduler implements Scheduler {
 

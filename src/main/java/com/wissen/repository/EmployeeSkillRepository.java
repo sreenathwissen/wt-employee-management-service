@@ -7,8 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Employee skill repository class
+ */
 @Repository
 public interface EmployeeSkillRepository extends JpaRepository<EmployeeSkill, Integer> {
 
+    /**
+     * Find employee skill by employee.
+     *
+     * @param employee
+     * @return employeeSkills
+     */
     public List<EmployeeSkill> getEmployeeSkillByEmployee(Employee employee);
 }

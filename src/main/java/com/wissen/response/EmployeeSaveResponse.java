@@ -5,6 +5,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Employee save response class.
+ *
+ * @author Vishal Tomar
+ */
 @Data
 @NoArgsConstructor
 public class EmployeeSaveResponse {

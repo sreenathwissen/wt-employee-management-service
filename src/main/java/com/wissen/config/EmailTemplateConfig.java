@@ -9,7 +9,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import java.nio.charset.StandardCharsets;
 
 @Configuration
-public class TemplateConfig {
+public class EmailTemplateConfig {
 
     /**
      * Bean to read from the templates folder for sending email

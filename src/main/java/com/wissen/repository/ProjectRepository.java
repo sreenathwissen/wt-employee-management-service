@@ -1,6 +1,5 @@
 package com.wissen.repository;
 
-import com.wissen.entity.Client;
 import com.wissen.entity.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Project repository class.
+ */
 @Repository
 public interface ProjectRepository  extends JpaRepository<Project, Integer> {
 

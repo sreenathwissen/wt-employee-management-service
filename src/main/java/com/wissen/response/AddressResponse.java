@@ -3,6 +3,11 @@ package com.wissen.response;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Address response class.
+ *
+ * @author Vishal Tomar
+ */
 @Data
 @NoArgsConstructor
 public class AddressResponse {

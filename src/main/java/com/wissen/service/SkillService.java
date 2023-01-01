@@ -1,10 +1,14 @@
 package com.wissen.service;
 
-import com.wissen.entity.Department;
 import com.wissen.entity.Skill;
 
 import java.util.List;
 
+/**
+ * Interface responsible for skill related things.
+ *
+ * @author Anushka Saxena
+ */
 public interface SkillService {
 
     /**

@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * Employee response class.
+ *
+ * @author Vishal Tomar
+ */
 @Data
 @NoArgsConstructor
 public class EmployeeResponse {

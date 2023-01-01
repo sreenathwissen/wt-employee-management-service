@@ -13,12 +13,18 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation class for client related things.
+ */
 @Service
 public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Client> saveClients(final List<ClientDTO> clients) {
         List<Client> clientEntities = clients.parallelStream()
@@ -28,6 +34,9 @@ public class ClientServiceImpl implements ClientService {
         return this.clientRepository.saveAll(clientEntities);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Client> searchClients(String searchString) {
         List<Client> clients = new ArrayList<>();
@@ -35,6 +44,9 @@ public class ClientServiceImpl implements ClientService {
         return clients;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Client getClientById(int clientId) {
         Optional<Client> result =  this.clientRepository.findById(clientId);
@@ -43,6 +55,9 @@ public class ClientServiceImpl implements ClientService {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Client> getAllClients() {
         return this.clientRepository.findAll();

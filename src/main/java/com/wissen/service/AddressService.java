@@ -6,6 +6,9 @@ import com.wissen.entity.Employee;
 
 import java.util.List;
 
+/**
+ * Interface for address service.
+ */
 public interface AddressService {
 
     public List<Address> saveAddresses(List<Address> address);
