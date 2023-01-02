@@ -2,18 +2,15 @@ package com.wissen.service.impl;
 
 import static com.wissen.constants.ExcelConstant.*;
 
-import com.wissen.constants.ExcelConstant;
 import com.wissen.entity.Department;
 import com.wissen.entity.Designation;
 import com.wissen.entity.Employee;
 import com.wissen.entity.Role;
-import com.wissen.enums.EmployeeExcelHeaders;
 import com.wissen.repository.EmployeeRepository;
 import com.wissen.service.BulkUploadService;
 import com.wissen.service.DepartmentService;
 import com.wissen.service.DesignationService;
 import com.wissen.service.RoleService;
-import com.wissen.utils.ExcelUtil;
 import com.wissen.validate.BulkUploadValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
@@ -27,6 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
+/**
+ * Implementation class for employee bulk upload related things.
+ */
 @Service("EmployeeBulkUpload")
 @Slf4j
 public class EmployeeBulkUploadServiceImpl implements BulkUploadService {
@@ -46,6 +46,9 @@ public class EmployeeBulkUploadServiceImpl implements BulkUploadService {
     @Autowired
     private BulkUploadValidation employeeBulkUploadValidation;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void bulkUploadToDb(MultipartFile dataFile) {
         this.employeeBulkUploadValidation.validate(dataFile);
@@ -72,11 +75,21 @@ public class EmployeeBulkUploadServiceImpl implements BulkUploadService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void validateExcel(MultipartFile dataFile) {
         this.employeeBulkUploadValidation.validate(dataFile);
     }
 
+    /**
+     * Set employee value.
+     *
+     * @param header
+     * @param employee
+     * @param cell
+     */
     private void setEmployeeValue(String header, Employee employee, Cell cell) {
         CellType cellType = cell.getCellType();
         switch (header) {

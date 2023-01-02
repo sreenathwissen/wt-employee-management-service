@@ -34,38 +34,6 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employeeSaveResponses);
     }
-    @PostMapping
-    @ApiOperation("Creates new Employee")
-    public ResponseEntity<String> create(@RequestBody Employee employee) {
-        return new ResponseEntity<>(service.createEmployee(employee), HttpStatus.OK);
-    }
-    @PostMapping("/upload")
-    @ApiOperation("Creates bulk employees from Excel")
-    public ResponseEntity<String> createAll(@RequestParam("file") MultipartFile file){
-        String message = "";
-        if(ExcelHelper.hasExcelFormat(file)){
-            try {
-                return new ResponseEntity<>(service.createEmployeeFromExcel(file), HttpStatus.OK);
-            } catch (IOException e) {
-                message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-                return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
-            }
-        }
-        message = "Please upload an excel file!";
-        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
-    }
-
-    @PatchMapping("/{id}")
-    @ApiOperation("Update an employee with id")
-    public ResponseEntity<String> update(@PathVariable int id, @RequestBody Employee employee){
-        return new ResponseEntity<>(service.updateEmployee(employee, id), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    @ApiOperation("Delete an employee with id")
-    public ResponseEntity<String> delete(@PathVariable int id){
-        return new ResponseEntity<>(service.deleteEmployee(id), HttpStatus.OK);
-    }
 
     @GetMapping("/employees")
     @ApiOperation("Get all employees")

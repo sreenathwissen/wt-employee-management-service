@@ -56,7 +56,7 @@ public class ClientController {
      * @return Client Details
      */
     @GetMapping
-    public ResponseEntity<Client> getClientsId(@RequestParam @NotNull(message = "Client id is null") final int clientId) {
+    public ResponseEntity<Client> getClientsById(@RequestParam @NotNull(message = "Client id is null") final int clientId) {
         log.debug("Fetching the clients based for Client_ID {}", clientId);
         Client client = this.clientService.getClientById(clientId);
         log.debug("Client Response for the ID {} is {}", clientId, client);

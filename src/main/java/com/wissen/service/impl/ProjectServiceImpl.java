@@ -15,6 +15,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation class for project related things.
+ */
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -24,6 +27,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private EmployeeProjectRepository employeeProjectRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Project> saveProjects(List<ProjectDTO> projects) {
         List<Project> projectEntities = projects.parallelStream()
@@ -32,6 +38,9 @@ public class ProjectServiceImpl implements ProjectService {
         return this.projectRepository.saveAll(projectEntities);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EmployeeProject saveProjectEmployeeMapping(int projectId, int employeeId, final LocalDate doj, final LocalDate dor) {
         final EmployeeProject employeeProject = new EmployeeProject();
@@ -49,11 +58,17 @@ public class ProjectServiceImpl implements ProjectService {
         return this.employeeProjectRepository.save(employeeProject);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Project> searchProjectToClientDetails(String searchString) {
         return this.projectRepository.getProjectToClientDetails(searchString);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project getProjectToClientDetailsByProjectId(int projectId) {
         return this.projectRepository.getProjectToClientDetailsByProjectId(projectId);
@@ -69,6 +84,9 @@ public class ProjectServiceImpl implements ProjectService {
         return this.projectRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId) {
         Employee employee = new Employee();

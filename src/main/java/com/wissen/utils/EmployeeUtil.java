@@ -8,8 +8,19 @@ import com.wissen.response.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class for employee related things
+ *
+ * @author Anushka Saxena
+ */
 public final class EmployeeUtil {
 
+    /**
+     * Method to get Employee model by employee dto.
+     *
+     * @param employeeDetailDTO
+     * @return employeeModel
+     */
     public static Employee getEmployeeEntity(EmployeeDetailDTO employeeDetailDTO){
         Employee employee = new Employee();
 
@@ -40,6 +51,12 @@ public final class EmployeeUtil {
         return employee;
     }
 
+    /**
+     * Method to create designation model to from designation dto.
+     *
+     * @param designationDTO
+     * @return designationModel
+     */
     public static Designation getDesignationEntity(DesignationDTO designationDTO){
         Designation designation = new Designation();
         designation.setDesgId(designationDTO.getDesgId());
@@ -47,6 +64,12 @@ public final class EmployeeUtil {
         return designation;
     }
 
+    /**
+     * Method to create department model to from department dto.
+     *
+     * @param departmentDTO
+     * @return departmentModel
+     */
     public static Department getDepartmentEntity(DepartmentDTO departmentDTO){
         Department department = new Department();
         department.setDepId(departmentDTO.getDepId());
@@ -54,6 +77,12 @@ public final class EmployeeUtil {
         return department;
     }
 
+    /**
+     * Method to create role model to from role dto.
+     *
+     * @param roleDTO
+     * @return roleModel
+     */
     public static Role getRoleEntity(RoleDTO roleDTO){
         Role role = new Role();
         role.setRoleId(roleDTO.getRoleId());
@@ -61,6 +90,13 @@ public final class EmployeeUtil {
         return role;
     }
 
+    /**
+     * Method to create address entity model to from employee dto.
+     *
+     * @param addressDTO
+     * @param employee
+     * @return address
+     */
     public static Address getAddressEntity(AddressDTO addressDTO, Employee employee){
         Address address = new Address();
         address.setAddrId(addressDTO.getAddressId());
@@ -76,6 +112,13 @@ public final class EmployeeUtil {
         return address;
     }
 
+    /**
+     * Method to create employeeSkill model to from employee dto.
+     *
+     * @param employeeSkillDTO
+     * @param employee
+     * @return employeeSkill
+     */
     public static EmployeeSkill getEmployeeSkillEntity(EmployeeSkillDTO employeeSkillDTO, Employee employee){
         EmployeeSkill employeeSkill = new EmployeeSkill();
 
@@ -91,6 +134,13 @@ public final class EmployeeUtil {
         return employeeSkill;
     }
 
+    /**
+     * Method to create employee account model to from employee account dto.
+     *
+     * @param employeeAccountDTO
+     * @param employee
+     * @return employeeAccount
+     */
     public static EmployeeAccount getEmployeeAccountEntity(EmployeeAccountDTO employeeAccountDTO, Employee employee){
         EmployeeAccount employeeAccount = new EmployeeAccount();
         EmployeeAccountId employeeAccountId = new EmployeeAccountId();
@@ -104,6 +154,12 @@ public final class EmployeeUtil {
         return employeeAccount;
     }
 
+    /**
+     * Method to create employeeResponse model to from employee dto.
+     *
+     * @param employee
+     * @return employeeResponse
+     */
     public static EmployeeResponse getEmployeeResponse(Employee employee){
         EmployeeResponse employeeResponse = new EmployeeResponse();
         employeeResponse.setEmpId(employee.getEmpId());
@@ -133,6 +189,12 @@ public final class EmployeeUtil {
         return employeeResponse;
     }
 
+    /**
+     * Method to get address response using address list.
+     *
+     * @param addressList
+     * @return addressResponse
+     */
     public static List<AddressResponse> getAddressResponseList(List<Address> addressList) {
         List<AddressResponse> addressResponseList = new ArrayList<>();
 
@@ -152,6 +214,11 @@ public final class EmployeeUtil {
         return addressResponseList;
     }
 
+    /**
+     * Method to get employee skill response using employee skill list.
+     * @param employeeSkillList
+     * @return employeeSkillResponse
+     */
     public static List<EmployeeSkillResponse> getEmployeeSkillResponse(List<EmployeeSkill> employeeSkillList){
         List<EmployeeSkillResponse> employeeSkillResponseList = new ArrayList<>();
         for(int i=0; i<employeeSkillList.size(); i++){
@@ -164,6 +231,12 @@ public final class EmployeeUtil {
         return employeeSkillResponseList;
     }
 
+    /**
+     * Method to get employee account response using employee account list.
+     *
+     * @param employeeAccount
+     * @return employeeAccountResponse
+     */
     public static EmployeeAccountResponse getEmployeeAccountResponse(EmployeeAccount employeeAccount){
         EmployeeAccountResponse employeeAccountResponse = new EmployeeAccountResponse();
         employeeAccountResponse.setEmpId(employeeAccount.getEmployeeAccountId().getEmployee().getEmpId());

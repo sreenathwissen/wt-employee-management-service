@@ -38,7 +38,7 @@ public class BulkUploadController {
     /**
      * API to validate the Excel file and data
      * @param dataFile
-     * @return
+     * @return response
      */
     @PostMapping(path = "/validate")
     public ResponseEntity<String> validateBulkUpload(@RequestPart(required = true) MultipartFile dataFile) {

@@ -13,6 +13,11 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Class responsible for emails related things.
+ *
+ * @author Vishal Tomar
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -21,6 +26,12 @@ public class EmailService {
     private final JavaMailSender emailSender;
     private final SpringTemplateEngine templateEngine;
 
+    /**
+     * Method to send emails.
+     *
+     * @param email
+     * @throws MessagingException
+     */
     public void sendHtmlMessage(Email email) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());

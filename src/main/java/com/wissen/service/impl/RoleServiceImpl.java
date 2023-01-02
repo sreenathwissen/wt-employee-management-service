@@ -19,11 +19,17 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Role> getAllRoles() {
         return this.roleRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Role getRoleByName(String name) {
         return this.roleRepository.getRoleByRoleName(name);

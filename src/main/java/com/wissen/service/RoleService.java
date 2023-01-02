@@ -18,6 +18,11 @@ public interface RoleService {
      */
     public List<Role> getAllRoles();
 
-
+    /**
+     * Method to get role by role name.
+     *
+     * @param name
+     * @return role
+     */
     public Role getRoleByName(String name);
 }

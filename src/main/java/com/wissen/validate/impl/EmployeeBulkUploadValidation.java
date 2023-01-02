@@ -1,8 +1,5 @@
 package com.wissen.validate.impl;
 
-import com.wissen.entity.Department;
-import com.wissen.entity.Designation;
-import com.wissen.entity.Role;
 import com.wissen.enums.EmployeeExcelHeaders;
 import com.wissen.exception.EmployeeExcelValidationException;
 import com.wissen.service.DepartmentService;
@@ -11,7 +8,6 @@ import com.wissen.service.RoleService;
 import com.wissen.validate.BulkUploadValidation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,6 +24,11 @@ import java.util.stream.Collectors;
 
 import static com.wissen.constants.ExcelConstant.EMPLOYEE_SHEET_COLUMN_COUNT;
 
+/**
+ * Implementation class for employeebulk upload validation.
+ *
+ * @author Vishal Tomar
+ */
 @Component
 public class EmployeeBulkUploadValidation implements BulkUploadValidation {
 
@@ -51,6 +52,14 @@ public class EmployeeBulkUploadValidation implements BulkUploadValidation {
         this.roles = this.roleService.getAllRoles().stream().map(role -> role.getRoleName()).collect(Collectors.toList());
     }
 
+    /**
+     * Method to validate excel data file.
+     *
+     * @param dataFile
+     * @throws EmployeeExcelValidationException
+     *
+     * @author Vishal Tomar
+     */
     @Override
     public void validate(MultipartFile dataFile) throws EmployeeExcelValidationException {
         List<EmployeeExcelHeaders> headers = Arrays.stream(EmployeeExcelHeaders.values()).toList();
@@ -85,6 +94,14 @@ public class EmployeeBulkUploadValidation implements BulkUploadValidation {
 
     }
 
+    /**
+     * Method to validate employee excel headers.
+     *
+     * @author Vishal Tomar
+     * @param row
+     * @param headers
+     * @throws RuntimeException
+     */
     private void validateHeaders(Row row, List<EmployeeExcelHeaders> headers) throws RuntimeException {
         for(int cellIndex=0; cellIndex<EMPLOYEE_SHEET_COLUMN_COUNT; cellIndex++) {
             Cell cell = row.getCell(cellIndex);

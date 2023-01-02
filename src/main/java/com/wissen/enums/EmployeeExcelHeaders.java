@@ -7,6 +7,11 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Enum class for employee excel properties.
+ *
+ * @author Vishal Tomar
+ */
 @Getter
 public enum EmployeeExcelHeaders {
 
