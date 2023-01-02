@@ -96,6 +96,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private Project getProject(final ProjectDTO projectDTO) {
         Project project = new Project();
+        project.setProjectId(projectDTO.getProjectId());
         project.setProjectName(projectDTO.getProjectName());
         project.setProjectLocation(projectDTO.getProjectLocation());
         project.setProjectLead(projectDTO.getProjectLead());

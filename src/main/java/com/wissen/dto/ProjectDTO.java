@@ -26,4 +26,6 @@ public class ProjectDTO {
     @NotNull(message = "Project type is null")
     @NotEmpty(message = "Project type is empty")
     private String projectType;
+
+    private int projectId;
 }
