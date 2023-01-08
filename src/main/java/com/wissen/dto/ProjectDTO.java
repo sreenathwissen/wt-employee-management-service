@@ -2,6 +2,7 @@ package com.wissen.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 public class ProjectDTO {
 
     @NotNull(message = "Client id is null")
+    @Min(value = 1, message = "Please provide valid clientId")
     private int clientId;
 
     @NotNull(message = "Project name is null")
