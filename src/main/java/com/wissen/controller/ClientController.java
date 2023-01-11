@@ -1,6 +1,5 @@
 package com.wissen.controller;
 
-import com.wissen.dto.ClientDTO;
 import com.wissen.entity.Client;
 import com.wissen.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,7 @@ public class ClientController {
      * @return saved Client response list
      */
     @PostMapping
-    public ResponseEntity<List<Client>> saveClient(@RequestBody @NotEmpty(message = "Client list cannot be empty. Provide a valid Client list") final List<@Valid ClientDTO> clients) {
+    public ResponseEntity<List<Client>> saveClient(@RequestBody @NotEmpty(message = "Client list cannot be empty. Provide a valid Client list") final List<@Valid Client> clients) {
         log.debug("Saving clients : {}", clients);
         List<Client> savedClients = this.clientService.saveClients(clients);
         log.debug("Saved clients response {}",savedClients);

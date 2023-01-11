@@ -1,7 +1,7 @@
 package com.wissen.service;
 
-import com.wissen.dto.ClientDTO;
 import com.wissen.entity.Client;
+import com.wissen.exception.DataAlreadyExistException;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface ClientService {
      * @param clients
      * @return savedClients
      */
-    public List<Client> saveClients(final List<ClientDTO> clients);
+    public List<Client> saveClients(final List<Client> clients) throws DataAlreadyExistException;
 
     /**
      * Method to search clients
