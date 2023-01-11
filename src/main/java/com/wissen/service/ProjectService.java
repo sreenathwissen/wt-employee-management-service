@@ -3,6 +3,7 @@ package com.wissen.service;
 import com.wissen.dto.ProjectDTO;
 import com.wissen.entity.EmployeeProject;
 import com.wissen.entity.Project;
+import com.wissen.exception.DataAlreadyExistException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +19,7 @@ public interface ProjectService {
      * @param projects
      * @return projects
      */
-    public List<Project> saveProjects(final List<ProjectDTO> projects);
+    public List<Project> saveProjects(final List<ProjectDTO> projects) throws DataAlreadyExistException;
 
     /**
      * Method to save employee to project mapping.

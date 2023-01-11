@@ -5,9 +5,11 @@ import com.wissen.entity.Client;
 import com.wissen.entity.Employee;
 import com.wissen.entity.EmployeeProject;
 import com.wissen.entity.Project;
+import com.wissen.exception.DataAlreadyExistException;
 import com.wissen.repository.EmployeeProjectRepository;
 import com.wissen.repository.ProjectRepository;
 import com.wissen.service.ProjectService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
  * Implementation class for project related things.
  */
 @Service
+@Slf4j
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
@@ -31,11 +34,43 @@ public class ProjectServiceImpl implements ProjectService {
      * {@inheritDoc}
      */
     @Override
-    public List<Project> saveProjects(List<ProjectDTO> projects) {
+    public List<Project> saveProjects(List<ProjectDTO> projects) throws DataAlreadyExistException {
         List<Project> projectEntities = projects.parallelStream()
                 .map(project -> getProject(project))
                 .collect(Collectors.toList());
-        return this.projectRepository.saveAll(projectEntities);
+
+        if(validateProjectSaveRequest(projectEntities)) {
+            return this.projectRepository.saveAll(projectEntities);
+        }
+        return null;
+    }
+
+    /**
+     * If request is for insert then check whether combination of projectName, projectLocation, projectType and clientId
+     * is present then throw DataAlreadyExistException else return true. If request is for insert then check whether
+     * combination of projectName, projectLocation, projectType, clientId and projectLead is present then throw
+     * DataAlreadyExistException else return true.
+     *
+     * @param projects
+     * @return validate
+     * @throws DataAlreadyExistException
+     * @autor Vishal Tomar
+     */
+    private boolean validateProjectSaveRequest(List<Project> projects) throws DataAlreadyExistException {
+        projects.stream().forEach(project -> {
+            if(project.getProjectId() == 0 && projectRepository.isExistsForInsert(project.getProjectName(),
+                    project.getProjectLocation(), project.getProjectType(), project.getClient().getClientId())) {
+                log.error("This Project details already present : " + project.toString());
+                throw new DataAlreadyExistException("This Project details already present : " + project.toString());
+            } else if(projectRepository.isExistsForUpdate(project.getProjectName(),
+                    project.getProjectLocation(), project.getProjectType(), project.getClient().getClientId(),
+                    project.getProjectLead())) {
+                log.error("This Project details already present : " + project.toString());
+                throw new DataAlreadyExistException("This Project details already present : " + project.toString());
+            }
+        });
+
+        return Boolean.TRUE;
     }
 
     /**
