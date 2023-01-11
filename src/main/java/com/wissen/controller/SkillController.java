@@ -36,7 +36,7 @@ public class SkillController {
      * @return Save skill
      */
     @PostMapping
-    public ResponseEntity<List<Skill>> saveSkill(@RequestBody @NotEmpty(message = "Skill list is empty") final List<String> skills){
+    public ResponseEntity<List<Skill>> saveSkill(@RequestBody @NotEmpty(message = "Skill list is empty") final List<Skill> skills){
         log.info("Starting to save Skills");
         List<Skill> savedSkills = this.skillService.saveSkills(skills);
         return ResponseEntity.status(HttpStatus.OK)
