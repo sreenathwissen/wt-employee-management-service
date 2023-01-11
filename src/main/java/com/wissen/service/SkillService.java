@@ -1,6 +1,7 @@
 package com.wissen.service;
 
 import com.wissen.entity.Skill;
+import com.wissen.exception.DataAlreadyExistException;
 
 import java.util.List;
 

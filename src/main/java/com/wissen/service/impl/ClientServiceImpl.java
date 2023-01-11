@@ -1,7 +1,7 @@
 package com.wissen.service.impl;
 
-import com.wissen.dto.ClientDTO;
 import com.wissen.entity.Client;
+import com.wissen.exception.DataAlreadyExistException;
 import com.wissen.repository.ClientRepository;
 import com.wissen.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Implementation class for client related things.
@@ -28,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
      * {@inheritDoc}
      */
     @Override
-    public List<Client> saveClients(final List<Client> clients) throws DataAlreadyExistException{
+    public List<Client> saveClients(final List<Client> clients) throws DataAlreadyExistException {
 
         if(validateClientSaveRequest(clients)) {
             return this.clientRepository.saveAll(clients);
@@ -37,7 +36,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     /**
-     * If combination of client name and client location exists, then throw an error and if it doesn't then insert/update as per client id
+     * If combination of client name and client location exists,
+     * then throw an error and if it doesn't then insert/update as per client id.
      * @throws
      * @param clients
      * @return validate
