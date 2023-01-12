@@ -18,11 +18,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableScheduling
 public class EmployeeApi2Application {
-//
-//	@RequestMapping("/")
-//	public String home(){
-//		return "Docker home controller!";
-//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(EmployeeApi2Application.class, args);
