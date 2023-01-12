@@ -31,4 +31,9 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
      */
     @Query("SELECT c FROM Client c WHERE c.clientName LIKE CONCAT('%',:searchString, '%')")
     public List<Client> getClientByPattern(String searchString);
+
+    @Query("SELECT CASE WHEN count(c) > 0 THEN true ELSE false END FROM Client c where UPPER(c.clientName) = UPPER(:clientName)" +
+            " AND UPPER(c.clientLocation) = UPPER(:clientLocation)")
+    public boolean isClientExists(String clientName, String clientLocation);
+
 }

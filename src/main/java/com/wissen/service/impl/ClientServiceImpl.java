@@ -1,9 +1,10 @@
 package com.wissen.service.impl;
 
-import com.wissen.dto.ClientDTO;
 import com.wissen.entity.Client;
+import com.wissen.exception.DataAlreadyExistException;
 import com.wissen.repository.ClientRepository;
 import com.wissen.service.ClientService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Implementation class for client related things.
  */
 @Service
+@Slf4j
 public class ClientServiceImpl implements ClientService {
 
     @Autowired
@@ -26,12 +27,31 @@ public class ClientServiceImpl implements ClientService {
      * {@inheritDoc}
      */
     @Override
-    public List<Client> saveClients(final List<ClientDTO> clients) {
-        List<Client> clientEntities = clients.parallelStream()
-                .map(client -> getClient(client))
-                .collect(Collectors.toList());
+    public List<Client> saveClients(final List<Client> clients) throws DataAlreadyExistException {
 
-        return this.clientRepository.saveAll(clientEntities);
+        if(validateClientSaveRequest(clients)) {
+            return this.clientRepository.saveAll(clients);
+        }
+        return null;
+    }
+
+    /**
+     * If combination of client name and client location exists,
+     * then throw an error and if it doesn't then insert/update as per client id.
+     * @throws
+     * @param clients
+     * @return validate
+     * @author Anushka Saxena
+     */
+    private boolean validateClientSaveRequest(List<Client> clients) throws DataAlreadyExistException{
+        clients.stream().forEach(client -> {
+            if(clientRepository.isClientExists(client.getClientName(), client.getClientLocation())) {
+                log.error("The Client details are already present : " + client.toString());
+                throw new DataAlreadyExistException("Details already present : " + client.toString());
+            }
+        });
+
+        return Boolean.TRUE;
     }
 
     /**
@@ -63,10 +83,4 @@ public class ClientServiceImpl implements ClientService {
         return this.clientRepository.findAll();
     }
 
-    private Client getClient(final ClientDTO client) {
-        Client clientEntity = new Client();
-        clientEntity.setClientName(client.getClientName());
-        clientEntity.setClientLocation(client.getClientLocation());
-        return clientEntity;
-    }
 }

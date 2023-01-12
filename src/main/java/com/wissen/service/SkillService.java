@@ -1,6 +1,7 @@
 package com.wissen.service;
 
 import com.wissen.entity.Skill;
+import com.wissen.exception.DataAlreadyExistException;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface SkillService {
      * @param skills
      * @return Save Skill
      */
-    public List<Skill> saveSkills(final List<String> skills);
+    public List<Skill> saveSkills(final List<Skill> skills) throws DataAlreadyExistException;
 
     /**
      * @author Anushka Saxena
