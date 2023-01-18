@@ -47,7 +47,7 @@ public class ClientServiceImpl implements ClientService {
         clients.stream().forEach(client -> {
             if(clientRepository.isClientExists(client.getClientName(), client.getClientLocation())) {
                 log.error("The Client details are already present : " + client.toString());
-                throw new DataAlreadyExistException("Details already present : " + client.toString());
+                throw new DataAlreadyExistException("Details already present");
             }
         });
 

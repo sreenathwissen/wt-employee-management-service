@@ -61,12 +61,12 @@ public class ProjectServiceImpl implements ProjectService {
             if(project.getProjectId() == 0 && projectRepository.isExistsForInsert(project.getProjectName(),
                     project.getProjectLocation(), project.getProjectType(), project.getClient().getClientId())) {
                 log.error("This Project details already present : " + project.toString());
-                throw new DataAlreadyExistException("This Project details already present : " + project.toString());
+                throw new DataAlreadyExistException("Details already present");
             } else if(projectRepository.isExistsForUpdate(project.getProjectName(),
                     project.getProjectLocation(), project.getProjectType(), project.getClient().getClientId(),
                     project.getProjectLead())) {
                 log.error("This Project details already present : " + project.toString());
-                throw new DataAlreadyExistException("This Project details already present : " + project.toString());
+                throw new DataAlreadyExistException("Details already present");
             }
         });
 

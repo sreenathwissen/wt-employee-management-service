@@ -30,7 +30,7 @@ public class SkillServiceImpl implements SkillService {
         skills.stream().forEach(skill -> {
             if(skillRespository.isSkillExists(skill.getSkillName())) {
                 log.error("This Skill details already present : " + skill.toString());
-                throw new DataAlreadyExistException("This Skill details already present : " + skill.toString());
+                throw new DataAlreadyExistException("Details already present");
             }
         });
 
