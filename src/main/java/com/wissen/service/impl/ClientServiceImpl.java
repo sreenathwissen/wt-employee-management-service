@@ -1,5 +1,6 @@
 package com.wissen.service.impl;
 
+import com.wissen.constants.Constants;
 import com.wissen.entity.Client;
 import com.wissen.exception.DataAlreadyExistException;
 import com.wissen.repository.ClientRepository;
@@ -46,8 +47,8 @@ public class ClientServiceImpl implements ClientService {
     private boolean validateClientSaveRequest(List<Client> clients) throws DataAlreadyExistException{
         clients.stream().forEach(client -> {
             if(clientRepository.isClientExists(client.getClientName(), client.getClientLocation())) {
-                log.error("The Client details are already present : " + client.toString());
-                throw new DataAlreadyExistException("Details already present");
+                log.error(Constants.CLIENT_DETAILS_ALREADY_PRESENT_LOG_MESSAGE, client.toString());
+                throw new DataAlreadyExistException(Constants.DETAILS_ALREADY_PRESENT_MESSAGE);
             }
         });
 

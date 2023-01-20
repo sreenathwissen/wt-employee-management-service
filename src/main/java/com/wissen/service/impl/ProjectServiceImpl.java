@@ -1,5 +1,6 @@
 package com.wissen.service.impl;
 
+import com.wissen.constants.Constants;
 import com.wissen.dto.ProjectDTO;
 import com.wissen.entity.Client;
 import com.wissen.entity.Employee;
@@ -60,13 +61,13 @@ public class ProjectServiceImpl implements ProjectService {
         projects.stream().forEach(project -> {
             if(project.getProjectId() == 0 && projectRepository.isExistsForInsert(project.getProjectName(),
                     project.getProjectLocation(), project.getProjectType(), project.getClient().getClientId())) {
-                log.error("This Project details already present : " + project.toString());
+                log.error(Constants.PROJECT_DETAILS_ALREADY_PRESENT_LOG_MESSAGE, project.toString());
                 throw new DataAlreadyExistException("Details already present");
             } else if(projectRepository.isExistsForUpdate(project.getProjectName(),
                     project.getProjectLocation(), project.getProjectType(), project.getClient().getClientId(),
                     project.getProjectLead())) {
-                log.error("This Project details already present : " + project.toString());
-                throw new DataAlreadyExistException("Details already present");
+                log.error(Constants.PROJECT_DETAILS_ALREADY_PRESENT_LOG_MESSAGE, project.toString());
+                throw new DataAlreadyExistException(Constants.DETAILS_ALREADY_PRESENT_MESSAGE);
             }
         });
 
