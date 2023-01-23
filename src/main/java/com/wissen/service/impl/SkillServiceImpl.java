@@ -1,5 +1,6 @@
 package com.wissen.service.impl;
 
+import com.wissen.constants.Constants;
 import com.wissen.entity.Skill;
 import com.wissen.exception.DataAlreadyExistException;
 import com.wissen.repository.SkillRespository;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Implementation class for skill related things.
@@ -29,8 +29,8 @@ public class SkillServiceImpl implements SkillService {
     public List<Skill> saveSkills(final List<Skill> skills) throws DataAlreadyExistException {
         skills.stream().forEach(skill -> {
             if(skillRespository.isSkillExists(skill.getSkillName())) {
-                log.error("This Skill details already present : " + skill.toString());
-                throw new DataAlreadyExistException("This Skill details already present : " + skill.toString());
+                log.error(Constants.SKILL_DETAILS_ALREADY_PRESENT_LOG_MESSAGE, skill.toString());
+                throw new DataAlreadyExistException(Constants.DETAILS_ALREADY_PRESENT_MESSAGE);
             }
         });
 
