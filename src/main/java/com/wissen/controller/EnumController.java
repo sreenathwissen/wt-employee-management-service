@@ -33,16 +33,6 @@ public class EnumController {
 
     /**
      * @author Anushka Saxena
-     * @description Method to fetch AddressType.
-     * @return Enum AddressType
-     */
-    @GetMapping("/addressType")
-    public ResponseEntity<AddressType[]> getAddressType(){
-        return ResponseEntity.status(HttpStatus.OK).body(AddressType.values());
-    }
-
-    /**
-     * @author Anushka Saxena
      * @description Method to fetch gender.
      * @return Enum Gender
      */
@@ -50,4 +40,5 @@ public class EnumController {
     public ResponseEntity<Gender[]> getGender(){
         return ResponseEntity.status(HttpStatus.OK).body(Gender.values());
     }
+
 }
