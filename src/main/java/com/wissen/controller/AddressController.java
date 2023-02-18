@@ -2,6 +2,7 @@ package com.wissen.controller;
 
 import com.wissen.dto.AddressDTO;
 import com.wissen.entity.Address;
+import com.wissen.enums.AddressType;
 import com.wissen.service.AddressService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -54,4 +55,15 @@ public class AddressController {
         log.debug("Employee address response {}", empAddressList);
         return ResponseEntity.status(HttpStatus.OK).body(empAddressList);
     }
+
+    /**
+     * @author Anushka Saxena
+     * @description Method to fetch AddressType.
+     * @return Enum AddressType
+     */
+    @GetMapping("/addressType")
+    public ResponseEntity<AddressType[]> getAddressType(){
+        return ResponseEntity.status(HttpStatus.OK).body(AddressType.values());
+    }
+
 }

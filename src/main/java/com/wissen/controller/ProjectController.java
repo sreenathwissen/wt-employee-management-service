@@ -3,6 +3,8 @@ package com.wissen.controller;
 import com.wissen.dto.ProjectDTO;
 import com.wissen.entity.EmployeeProject;
 import com.wissen.entity.Project;
+import com.wissen.enums.Gender;
+import com.wissen.enums.ProjectType;
 import com.wissen.service.ProjectService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -86,5 +88,15 @@ public class ProjectController {
         log.info("END : Getting employee's projects");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employeeProjects);
+    }
+
+    /**
+     * @author Vishal Tomar
+     * @description Method to fetch projectType.
+     * @return Enum ProjectType
+     */
+    @GetMapping("/projectType")
+    public ResponseEntity<ProjectType[]> getProjectType(){
+        return ResponseEntity.status(HttpStatus.OK).body(ProjectType.values());
     }
 }
