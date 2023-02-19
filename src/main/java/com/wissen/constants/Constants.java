@@ -13,5 +13,6 @@ public class Constants {
     public static final String CLIENT_DETAILS_ALREADY_PRESENT_LOG_MESSAGE = "The Client details are already present : {}";
     public static final String PROJECT_DETAILS_ALREADY_PRESENT_LOG_MESSAGE = "This Project details already present : {}";
     public static final String SKILL_DETAILS_ALREADY_PRESENT_LOG_MESSAGE = "This Skill details already present : {}";
+    public static final String Role_DETAILS_ALREADY_PRESENT_LOG_MESSAGE = "This role details already present : {}";
 
 }
