@@ -25,4 +25,13 @@ public interface RoleService {
      * @return role
      */
     public Role getRoleByName(String name);
+
+    /**
+     * Save role.
+     *
+     * @author Vishal Tomar
+     * @param roles
+     * @return roles
+     */
+    public List<Role> saveRoles(List<Role> roles);
 }
