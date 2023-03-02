@@ -1,5 +1,6 @@
 package com.wissen.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,9 +17,11 @@ public class EmployeeProject {
     @Column(name = "emp_project_id")
     int employeeProjectId;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "doj_onboarding")
     LocalDate dojOnboarding;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "dor_onboarding")
     LocalDate dorOnboarding;
 
