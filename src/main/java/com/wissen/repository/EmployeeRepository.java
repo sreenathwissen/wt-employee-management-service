@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    @Query("SELECT e FROM Employee e WHERE e.firstName LIKE CONCAT('%',:searchString, '%') OR e.lastName LIKE CONCAT('%',:searchString, '%')")
+    @Query("SELECT e FROM Employee e WHERE e.firstName LIKE CONCAT('%',:searchString, '%') OR e.lastName LIKE CONCAT('%',:searchString, '%') OR " +
+            "e.empId LIKE CONCAT('%',:searchString, '%') OR e.email LIKE CONCAT('%',:searchString, '%')")
     public List<Employee> searchEmployee(String searchString);
+
 }

@@ -3,7 +3,9 @@ package com.wissen.controller;
 import com.wissen.dto.EmployeeDetailDTO;
 import com.wissen.dto.EmployeeSearchDTO;
 import com.wissen.entity.Employee;
+import com.wissen.enums.ResponseStatus;
 import com.wissen.helper.ExcelHelper;
+import com.wissen.model.response.EmployeeManagementResponse;
 import com.wissen.response.EmployeeSaveResponse;
 import com.wissen.service.EmployeeService;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotEmpty;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/employee")
@@ -52,11 +55,32 @@ public class EmployeeController {
      * @return list of employeeSearch dto
      */
     @GetMapping("/search")
-    public ResponseEntity<List<EmployeeSearchDTO> > searchEmployee(@RequestParam final String searchString) {
+    public EmployeeManagementResponse searchEmployee(@RequestParam final String searchString) {
         log.info("START : Searching all employees");
-        List<EmployeeSearchDTO> employeesSearchDTOs = this.service.searchEmployee(searchString);
+
+        Set<EmployeeSearchDTO> employeesSearchDTOs = this.service.searchEmployee(searchString);
         log.info("END : Searching all employees");
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(employeesSearchDTOs);
+        return EmployeeManagementResponse.builder()
+                        .responseStatus(ResponseStatus.SUCCESS)
+                        .responseData(employeesSearchDTOs)
+                        .build();
     }
+
+    /**
+     * @autor Vishal Tomar
+     * Method to get employee by employee id.
+     * @param employeeId
+     * @return employee
+     */
+    @GetMapping("/employee")
+    public EmployeeManagementResponse getEmployee(@RequestParam final int employeeId) {
+        log.info("START :  Getting employee for employee id : {}", employeeId);
+        Employee employee = this.service.getEmployee(employeeId);
+        log.info("END :  Getting employee for employee id : {}", employeeId);
+        return EmployeeManagementResponse.builder()
+                .responseStatus(ResponseStatus.SUCCESS)
+                .responseData(employee)
+                .build();
+    }
+
 }

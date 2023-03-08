@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -99,14 +100,15 @@ public class EmployeeServiceImpl implements EmployeeService {
      * {@inheritDoc}
      */
     @Override
-    public List<EmployeeSearchDTO> searchEmployee(String searchString) {
+    public Set<EmployeeSearchDTO> searchEmployee(String searchString) {
         List<Employee> employees = this.employeeRepository.searchEmployee(searchString);
         return employees.parallelStream().map(employee -> {
             return EmployeeSearchDTO.builder()
-                .Name(employee.getFirstName() + " " + employee.getLastName())
+                .name(employee.getFirstName() + " " + employee.getLastName())
                 .id(employee.getEmpId())
+                .email(employee.getEmail())
                 .build();})
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     /**
