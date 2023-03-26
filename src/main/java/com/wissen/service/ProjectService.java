@@ -1,5 +1,6 @@
 package com.wissen.service;
 
+import com.wissen.dto.EmployeeProjectDTO;
 import com.wissen.dto.ProjectDTO;
 import com.wissen.entity.EmployeeProject;
 import com.wissen.entity.Project;
@@ -20,6 +21,15 @@ public interface ProjectService {
      * @return projects
      */
     public List<Project> saveProjects(final List<ProjectDTO> projects) throws DataAlreadyExistException;
+
+    /**
+     * Method to save employee to project mapping
+     *
+     * @param employeeProjects
+     * @return employeeProjects
+     * @throws DataAlreadyExistException
+     */
+    public List<EmployeeProject> saveProjectEmployeeMapping(final List<EmployeeProjectDTO> employeeProjects) throws DataAlreadyExistException;
 
     /**
      * Method to save employee to project mapping.
