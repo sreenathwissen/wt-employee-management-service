@@ -75,15 +75,15 @@ public class Employee {
     @Column(name = "manager")
     String manager;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     @JoinColumn(name="desg_id")
     Designation designation;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     @JoinColumn(name="dep_id")
     Department department;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     @JoinColumn(name="role_id")
     Role role;
 }

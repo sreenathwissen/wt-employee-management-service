@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 public class EmployeeAccountId implements Serializable {
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "emp_id")
     Employee employee;
 }
