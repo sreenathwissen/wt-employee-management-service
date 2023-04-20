@@ -1,6 +1,7 @@
 package com.wissen.service.impl;
 
 import com.wissen.constants.Constants;
+import com.wissen.dto.EmployeeProjectDTO;
 import com.wissen.dto.ProjectDTO;
 import com.wissen.entity.Client;
 import com.wissen.entity.Employee;
@@ -44,6 +45,29 @@ public class ProjectServiceImpl implements ProjectService {
             return this.projectRepository.saveAll(projectEntities);
         }
         return null;
+    }
+
+    @Override
+    public List<EmployeeProject> saveProjectEmployeeMapping(List<EmployeeProjectDTO> employeeProjects) throws DataAlreadyExistException {
+        List<EmployeeProject> employeeProjectsList = employeeProjects.parallelStream()
+                .map(employeeProject -> getEmployeeProject(employeeProject))
+                .collect(Collectors.toList());
+
+        return this.employeeProjectRepository.saveAll(employeeProjectsList);
+    }
+
+    private EmployeeProject getEmployeeProject(final EmployeeProjectDTO employeeProjectDTO) {
+        EmployeeProject employeeProject = new EmployeeProject();
+        employeeProject.setEmployeeProjectId(employeeProjectDTO.getEmployeeProjectId());
+        employeeProject.setDojOnboarding(employeeProjectDTO.getDojOnboarding());
+        employeeProject.setDorOnboarding(employeeProjectDTO.getDorOnboarding());
+        Employee employee = new Employee();
+        employee.setEmpId(employeeProjectDTO.getEmpId());
+        employeeProject.setEmployee(employee);
+        Project project = new Project();
+        project.setProjectId(employeeProjectDTO.getProjectId());
+        employeeProject.setProject(project);
+        return employeeProject;
     }
 
     /**
