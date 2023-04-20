@@ -26,7 +26,7 @@ public class Address {
     String city;
     String country;
     String state;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="emp_id")
     Employee employee;
 }

@@ -25,11 +25,11 @@ public class EmployeeProject {
     @Column(name = "dor_onboarding")
     LocalDate dorOnboarding;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="emp_id")
     Employee employee;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     @JoinColumn(name="project_id")
     Project project;
 }

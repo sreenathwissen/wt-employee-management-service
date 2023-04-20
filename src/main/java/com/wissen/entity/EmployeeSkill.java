@@ -22,11 +22,11 @@ public class EmployeeSkill {
 
     int levels;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "emp_id")
     Employee employee;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "skill_id")
     Skill skill;
 }
