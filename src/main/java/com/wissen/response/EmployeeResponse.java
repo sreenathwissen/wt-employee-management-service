@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class EmployeeResponse {
 
-    int empId;
+    String wissenId;
     String firstName;
     String gender;
     Date dob;

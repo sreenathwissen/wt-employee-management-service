@@ -45,9 +45,9 @@ public class AddressServiceImpl implements AddressService {
      * {@inheritDoc}
      */
     @Override
-    public List<Address> getAddressByEmployeeId(int empId) {
+    public List<Address> getAddressByWissenId(String wissenId) {
         Employee emp = new Employee();
-        emp.setEmpId(empId);
+        emp.setWissenId(wissenId);
         return this.addressRepository.getAddressByEmployee(emp);
     }
 }

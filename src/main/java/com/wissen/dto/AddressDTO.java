@@ -24,8 +24,8 @@ public class AddressDTO {
     @NotEmpty(message = "Pincode cannot be empty.")
     String pincode;
 
-    @NotNull(message = "Employee id is null")
-    int employeeId;
+    @NotNull(message = "Wissen id is null")
+    String wissenId;
 
     @NotNull(message = "Address Type is null")
     @NotEmpty(message = "Address Type cannot be empty.")

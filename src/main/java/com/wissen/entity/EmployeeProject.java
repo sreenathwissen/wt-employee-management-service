@@ -26,7 +26,7 @@ public class EmployeeProject {
     LocalDate dorOnboarding;
 
     @ManyToOne
-    @JoinColumn(name="emp_id")
+    @JoinColumn(name="wissen_id")
     Employee employee;
 
     @OneToOne

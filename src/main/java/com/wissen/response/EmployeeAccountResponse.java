@@ -15,5 +15,5 @@ public class EmployeeAccountResponse {
     String pan;
     String uan;
     String pfNo;
-    int empId;
+    String wissenId;
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
 public class EmployeeSearchDTO {
 
     private String name;
-    private int id;
+    private String id;
     private String email;
 
     @Override

@@ -43,15 +43,15 @@ public class AddressController {
     /**
      * API to fetch the Employee Address based on ID
      * author Vishal Tomar
-     * @param employeeId
+     * @param wissenId
      * @return
      */
     @GetMapping
     @ApiOperation("Get present and permanent address of an employee based on Employee ID")
     public ResponseEntity<List<Address>> getAddressesByEmployeeId(
-            @RequestParam @NotNull(message = "Employee id is null") int employeeId) {
-        log.debug("Getting address for emp_id {}", employeeId);
-        List<Address> empAddressList = this.addressService.getAddressByEmployeeId(employeeId);
+            @RequestParam @NotNull(message = "Wissen id is null") String wissenId) {
+        log.debug("Getting address for wissen_id {}", wissenId);
+        List<Address> empAddressList = this.addressService.getAddressByWissenId(wissenId);
         log.debug("Employee address response {}", empAddressList);
         return ResponseEntity.status(HttpStatus.OK).body(empAddressList);
     }

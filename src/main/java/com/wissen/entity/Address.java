@@ -27,6 +27,6 @@ public class Address {
     String country;
     String state;
     @ManyToOne
-    @JoinColumn(name="emp_id")
+    @JoinColumn(name="wissen_id")
     Employee employee;
 }

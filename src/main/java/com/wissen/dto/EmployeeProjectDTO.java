@@ -10,9 +10,8 @@ import java.time.LocalDate;
 @Data
 public class EmployeeProjectDTO {
 
-    @NotNull(message = "Employee id is null")
-    @Min(value = 1, message = "Please provide valid employeeId")
-    private int empId;
+    @NotNull(message = "Wissen id is null")
+    private String wissenId;
 
     @NotNull(message = "Project id is null")
     @Min(value = 1, message = "Please provide valid projectId")

@@ -35,12 +35,12 @@ public interface ProjectService {
      * Method to save employee to project mapping.
      *
      * @param projectId
-     * @param employeeId
+     * @param wissenId
      * @param doj
      * @param dor
      * @return employeeProject
      */
-    public EmployeeProject saveProjectEmployeeMapping(final int projectId, final int employeeId, final LocalDate doj, final LocalDate dor);
+    public EmployeeProject saveProjectEmployeeMapping(final int projectId, final String wissenId, final LocalDate doj, final LocalDate dor);
 
     /**
      * Method to search project to client details mapping.
@@ -61,10 +61,10 @@ public interface ProjectService {
     /**
      * Method to project of employee by employee id.
      *
-     * @param empId
+     * @param wissenId
      * @return employeeProjects
      */
-    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId);
+    public List<EmployeeProject> getEmployeeProjectByWissenId(String wissenId);
 
     /**
      * @author Vishal Tomar

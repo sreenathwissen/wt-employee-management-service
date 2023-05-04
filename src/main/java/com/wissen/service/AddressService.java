@@ -13,7 +13,7 @@ public interface AddressService {
 
     public List<Address> saveAddresses(List<Address> address);
 
-    public List<Address> getAddressByEmployeeId(int empId);
+    public List<Address> getAddressByWissenId(String wissenId);
 
     /**
      * @author Anushka Saxena

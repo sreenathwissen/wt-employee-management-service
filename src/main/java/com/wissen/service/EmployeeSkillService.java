@@ -18,28 +18,28 @@ public interface EmployeeSkillService {
     /**
      * @author Anushka Saxena
      * @param skillId
-     * @param employeeId
+     * @param wissenId
      * @param levels
      * @return Employee Skill
      */
-    public EmployeeSkill saveSkillEmployeeMapping(final int skillId, final int employeeId, final int levels);
+    public EmployeeSkill saveSkillEmployeeMapping(final int skillId, final String wissenId, final int levels);
 
     /**
      * @author Anushka Saxena
      * @param skillId
-     * @param employeeId
+     * @param wissenId
      * @param employeeSkillId
      * @param levels
      * @return Update Level of employee Skill
      */
-    public EmployeeSkill updateSkillEmployeeMapping(final int skillId, final int employeeId, final int employeeSkillId, final int levels);
+    public EmployeeSkill updateSkillEmployeeMapping(final int skillId, final String wissenId, final int employeeSkillId, final int levels);
 
     /**
      * @author Anushka Saxena
-     * @param employeeId
+     * @param wissenId
      * @return Employee Skill
      */
-    public List<EmployeeSkill> getSkillEmployeeMapping(int employeeId);
+    public List<EmployeeSkill> getSkillEmployeeMapping(String wissenId);
 
     /**
      * @author Anushka Saxena
