@@ -20,5 +20,5 @@ public class AddressResponse {
     String city;
     String country;
     String state;
-    String wissenId;
+    String employeeWissenId;
 }

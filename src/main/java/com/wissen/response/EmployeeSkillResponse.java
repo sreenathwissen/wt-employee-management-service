@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmployeeSkillResponse {
 
-    String wissenId;
+    String employeeWissenId;
     Skill skill;
     int levels;
 }

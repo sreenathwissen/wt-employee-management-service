@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class EmployeeProjectDTO {
 
     @NotNull(message = "Wissen id is null")
-    private String wissenId;
+    private String employeeWissenId;
 
     @NotNull(message = "Project id is null")
     @Min(value = 1, message = "Please provide valid projectId")

@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class EmployeeDetailDTO {
 
-    String wissenId;
+    String employeeWissenId;
 
     @NotNull(message = "First name is null")
     @NotEmpty(message = "first name cannot be empty.")
