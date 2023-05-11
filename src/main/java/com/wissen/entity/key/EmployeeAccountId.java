@@ -15,6 +15,6 @@ import java.io.Serializable;
 @Embeddable
 public class EmployeeAccountId implements Serializable {
     @OneToOne
-    @JoinColumn(name = "emp_id")
+    @JoinColumn(name = "wissen_id")
     Employee employee;
 }

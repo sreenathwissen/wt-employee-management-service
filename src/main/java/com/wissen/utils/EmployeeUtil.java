@@ -24,7 +24,7 @@ public final class EmployeeUtil {
     public static Employee getEmployeeEntity(EmployeeDetailDTO employeeDetailDTO){
         Employee employee = new Employee();
 
-        employee.setEmpId(employeeDetailDTO.getEmployeeId());
+        employee.setEmployeeWissenId(employeeDetailDTO.getEmployeeWissenId());
         employee.setFirstName(employeeDetailDTO.getFirstName());
         employee.setGender(employeeDetailDTO.getGender());
         employee.setDob(employeeDetailDTO.getDob());
@@ -162,7 +162,7 @@ public final class EmployeeUtil {
      */
     public static EmployeeResponse getEmployeeResponse(Employee employee){
         EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setEmpId(employee.getEmpId());
+        employeeResponse.setEmployeeWissenId(employee.getEmployeeWissenId());
         employeeResponse.setFirstName(employee.getFirstName());
         employeeResponse.setGender(employee.getGender());
         employeeResponse.setDob(employee.getDob());
@@ -208,7 +208,7 @@ public final class EmployeeUtil {
             addressResponse.setCity(addressList.get(i).getCity());
             addressResponse.setCountry(addressList.get(i).getCountry());
             addressResponse.setState(addressList.get(i).getState());
-            addressResponse.setEmpId(addressList.get(i).getEmployee().getEmpId());
+            addressResponse.setEmployeeWissenId(addressList.get(i).getEmployee().getEmployeeWissenId());
             addressResponseList.add(addressResponse);
         }
         return addressResponseList;
@@ -223,7 +223,7 @@ public final class EmployeeUtil {
         List<EmployeeSkillResponse> employeeSkillResponseList = new ArrayList<>();
         for(int i=0; i<employeeSkillList.size(); i++){
             EmployeeSkillResponse employeeSkillResponse = new EmployeeSkillResponse();
-            employeeSkillResponse.setEmpId(employeeSkillList.get(i).getEmployee().getEmpId());
+            employeeSkillResponse.setEmployeeWissenId(employeeSkillList.get(i).getEmployee().getEmployeeWissenId());
             employeeSkillResponse.setSkill(employeeSkillList.get(i).getSkill());
             employeeSkillResponse.setLevels(employeeSkillList.get(i).getLevels());
             employeeSkillResponseList.add(employeeSkillResponse);
@@ -239,7 +239,7 @@ public final class EmployeeUtil {
      */
     public static EmployeeAccountResponse getEmployeeAccountResponse(EmployeeAccount employeeAccount){
         EmployeeAccountResponse employeeAccountResponse = new EmployeeAccountResponse();
-        employeeAccountResponse.setEmpId(employeeAccount.getEmployeeAccountId().getEmployee().getEmpId());
+        employeeAccountResponse.setEmployeeWissenId(employeeAccount.getEmployeeAccountId().getEmployee().getEmployeeWissenId());
         employeeAccountResponse.setPan(employeeAccount.getPan());
         employeeAccountResponse.setUan(employeeAccount.getUan());
         employeeAccountResponse.setPfNo(employeeAccount.getPfNo());

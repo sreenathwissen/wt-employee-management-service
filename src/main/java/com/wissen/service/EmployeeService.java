@@ -37,10 +37,10 @@ public interface EmployeeService {
     public Set<EmployeeSearchDTO> searchEmployee(String searchString);
 
     /**
-     * Method to get employee by employeeId
+     * Method to get employee by employeeWissenId
      *
-     * @param employeeId
+     * @param employeeWissenId
      * @return employee
      */
-    public Employee getEmployee(int employeeId);
+    public Employee getEmployee(String employeeWissenId);
 }

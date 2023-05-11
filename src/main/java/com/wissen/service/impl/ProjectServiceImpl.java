@@ -62,7 +62,7 @@ public class ProjectServiceImpl implements ProjectService {
         employeeProject.setDojOnboarding(employeeProjectDTO.getDojOnboarding());
         employeeProject.setDorOnboarding(employeeProjectDTO.getDorOnboarding());
         Employee employee = new Employee();
-        employee.setEmpId(employeeProjectDTO.getEmpId());
+        employee.setEmployeeWissenId(employeeProjectDTO.getEmployeeWissenId());
         employeeProject.setEmployee(employee);
         Project project = new Project();
         project.setProjectId(employeeProjectDTO.getProjectId());
@@ -102,13 +102,13 @@ public class ProjectServiceImpl implements ProjectService {
      * {@inheritDoc}
      */
     @Override
-    public EmployeeProject saveProjectEmployeeMapping(int projectId, int employeeId, final LocalDate doj, final LocalDate dor) {
+    public EmployeeProject saveProjectEmployeeMapping(int projectId, String employeeWissenId, final LocalDate doj, final LocalDate dor) {
         final EmployeeProject employeeProject = new EmployeeProject();
 
         Project project = new Project();
         project.setProjectId(projectId);
         Employee employee = new Employee();
-        employee.setEmpId(employeeId);
+        employee.setEmployeeWissenId(employeeWissenId);
 
         employeeProject.setProject(project);
         employeeProject.setEmployee(employee);
@@ -148,9 +148,9 @@ public class ProjectServiceImpl implements ProjectService {
      * {@inheritDoc}
      */
     @Override
-    public List<EmployeeProject> getEmployeeProjectByEmployeeId(int empId) {
+    public List<EmployeeProject> getEmployeeProjectByWissenId(String employeeWissenId) {
         Employee employee = new Employee();
-        employee.setEmpId(empId);
+        employee.setEmployeeWissenId(employeeWissenId);
         return this.employeeProjectRepository.getEmployeeProjectByEmployee(employee);
     }
 

@@ -105,7 +105,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employees.parallelStream().map(employee -> {
             return EmployeeSearchDTO.builder()
                 .name(employee.getFirstName() + " " + employee.getLastName())
-                .id(employee.getEmpId())
+                .id(employee.getEmployeeWissenId())
                 .email(employee.getEmail())
                 .build();})
                 .collect(Collectors.toSet());
@@ -115,8 +115,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * {@inheritDoc}
      */
     @Override
-    public Employee getEmployee(int employeeId) {
-        return this.employeeRepository.findById(employeeId).get();
+    public Employee getEmployee(String employeeWissenId) {
+        return this.employeeRepository.findById(employeeWissenId).get();
     }
 
 }

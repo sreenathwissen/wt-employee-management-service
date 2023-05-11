@@ -32,7 +32,7 @@ public class AddressUtil {
         address.setPincode(addressDTO.getPincode());
         address.setStreet(addressDTO.getStreet());
         Employee emp = new Employee();
-        emp.setEmpId(addressDTO.getEmployeeId());
+        emp.setEmployeeWissenId(addressDTO.getEmployeeWissenId());
         address.setEmployee(emp);
         return address;
     }

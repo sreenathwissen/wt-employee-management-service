@@ -69,14 +69,14 @@ public class EmployeeController {
     /**
      * @autor Vishal Tomar
      * Method to get employee by employee id.
-     * @param employeeId
+     * @param employeeWissenId
      * @return employee
      */
     @GetMapping("/employee")
-    public EmployeeManagementResponse getEmployee(@RequestParam final int employeeId) {
-        log.info("START :  Getting employee for employee id : {}", employeeId);
-        Employee employee = this.service.getEmployee(employeeId);
-        log.info("END :  Getting employee for employee id : {}", employeeId);
+    public EmployeeManagementResponse getEmployee(@RequestParam final String employeeWissenId) {
+        log.info("START :  Getting employee for employee id : {}", employeeWissenId);
+        Employee employee = this.service.getEmployee(employeeWissenId);
+        log.info("END :  Getting employee for employee id : {}", employeeWissenId);
         return EmployeeManagementResponse.builder()
                 .responseStatus(ResponseStatus.SUCCESS)
                 .responseData(employee)

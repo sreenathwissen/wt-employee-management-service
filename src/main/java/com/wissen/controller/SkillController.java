@@ -46,17 +46,17 @@ public class SkillController {
     /**
      * @author Anushka Saxena
      * @param skillId
-     * @param employeeId
+     * @param employeeWissenId
      * @param levels
      * @return Employee Skill
      */
     @PostMapping("/saveSkillEmployeeMapping")
     public ResponseEntity<EmployeeSkill> saveSkillEmployeeMapping(@RequestParam @NotNull(message = "Skill id is null") final int skillId,
-                                                                  @RequestParam @NotNull(message = "Employee id is null") final int employeeId,
+                                                                  @RequestParam @NotNull(message = "Wissen id is null") final String employeeWissenId,
                                                                   @RequestParam @NotNull(message = "Level is null") final int levels){
         log.info("START: Saving skill employee mapping");
-        log.info("Skill id: {}, Employee id: {}, level: {}", skillId, employeeId, levels);
-        EmployeeSkill employeeSkill = this.employeeSkillService.saveSkillEmployeeMapping(skillId, employeeId, levels);
+        log.info("Skill id: {}, Employee id: {}, level: {}", skillId, employeeWissenId, levels);
+        EmployeeSkill employeeSkill = this.employeeSkillService.saveSkillEmployeeMapping(skillId, employeeWissenId, levels);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employeeSkill);
     }
@@ -64,32 +64,32 @@ public class SkillController {
     /**
      * @author Anushka Saxena
      * @param skillId
-     * @param employeeId
+     * @param employeeWissenId
      * @param levels
      * @param employeeSkillId
      * @return Update employee skill
      */
     @PutMapping("/updateSkillEmployeeMapping")
     public ResponseEntity<EmployeeSkill> updateSkillEmployeeMapping(@RequestParam @NotNull(message = "Skill id is null") final int skillId,
-                                                                  @RequestParam @NotNull(message = "Employee id is null") final int employeeId,
+                                                                  @RequestParam @NotNull(message = "Wissen id is null") final String employeeWissenId,
                                                                   @RequestParam @NotNull(message = "Employee skill id is null") final int employeeSkillId,
                                                                   @RequestParam @NotNull(message = "Level is null") final int levels){
         log.info("START: Saving skill employee mapping");
-        log.info("Skill id: {}, Employee id: {}, level: {}", skillId, employeeId, levels);
-        EmployeeSkill employeeSkill = this.employeeSkillService.updateSkillEmployeeMapping(skillId, employeeId, employeeSkillId, levels);
+        log.info("Skill id: {}, Employee id: {}, level: {}", skillId, employeeWissenId, levels);
+        EmployeeSkill employeeSkill = this.employeeSkillService.updateSkillEmployeeMapping(skillId, employeeWissenId, employeeSkillId, levels);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employeeSkill);
     }
 
     /**
      * @author Anushka Saxena
-     * @param employeeId
+     * @param employeeWissenId
      * @return Get employee skills
      */
     @GetMapping("/getSkillEmployeeMapping")
-    public ResponseEntity<List<EmployeeSkill>> getSkillEmployeeMapping(@RequestParam @NotNull(message = "Employee id is null") int employeeId){
+    public ResponseEntity<List<EmployeeSkill>> getSkillEmployeeMapping(@RequestParam @NotNull(message = "Employee id is null") String employeeWissenId){
         log.info("START: Get employee skills");
-        List<EmployeeSkill> employeeSkillList = this.employeeSkillService.getSkillEmployeeMapping(employeeId);
+        List<EmployeeSkill> employeeSkillList = this.employeeSkillService.getSkillEmployeeMapping(employeeWissenId);
         log.info("END: Fetched employee skills");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employeeSkillList);

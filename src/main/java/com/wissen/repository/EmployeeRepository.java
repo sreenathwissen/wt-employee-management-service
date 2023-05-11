@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * Employee repository class.
  */
-public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     @Query("SELECT e FROM Employee e WHERE e.firstName LIKE CONCAT('%',:searchString, '%') OR e.lastName LIKE CONCAT('%',:searchString, '%') OR " +
-            "e.empId LIKE CONCAT('%',:searchString, '%') OR e.email LIKE CONCAT('%',:searchString, '%')")
+            "e.employeeWissenId LIKE CONCAT('%',:searchString, '%') OR e.email LIKE CONCAT('%',:searchString, '%')")
     public List<Employee> searchEmployee(String searchString);
 
 }

@@ -31,13 +31,13 @@ public class EmployeeSkillServiceImpl implements EmployeeSkillService {
      * {@inheritDoc}
      */
     @Override
-    public EmployeeSkill saveSkillEmployeeMapping(int skillId, int employeeId, int levels) {
+    public EmployeeSkill saveSkillEmployeeMapping(int skillId, String employeeWissenId, int levels) {
         final EmployeeSkill employeeSkill = new EmployeeSkill();
 
         Skill skill = new Skill();
         skill.setSkillId(skillId);
         Employee employee = new Employee();
-        employee.setEmpId(employeeId);
+        employee.setEmployeeWissenId(employeeWissenId);
 
         employeeSkill.setSkill(skill);
         employeeSkill.setEmployee(employee);
@@ -50,13 +50,13 @@ public class EmployeeSkillServiceImpl implements EmployeeSkillService {
      * {@inheritDoc}
      */
     @Override
-    public EmployeeSkill updateSkillEmployeeMapping(int skillId, int employeeId, int employeeSkillId, int levels) {
+    public EmployeeSkill updateSkillEmployeeMapping(int skillId, String employeeWissenId, int employeeSkillId, int levels) {
         final EmployeeSkill employeeSkill = new EmployeeSkill();
 
         Skill skill = new Skill();
         skill.setSkillId(skillId);
         Employee employee = new Employee();
-        employee.setEmpId(employeeId);
+        employee.setEmployeeWissenId(employeeWissenId);
 
         employeeSkill.setSkill(skill);
         employeeSkill.setEmployee(employee);
@@ -69,9 +69,9 @@ public class EmployeeSkillServiceImpl implements EmployeeSkillService {
      * {@inheritDoc}
      */
     @Override
-    public List<EmployeeSkill> getSkillEmployeeMapping(int employeeId) {
+    public List<EmployeeSkill> getSkillEmployeeMapping(String employeeWissenId) {
         Employee employee = new Employee();
-        employee.setEmpId(employeeId);
+        employee.setEmployeeWissenId(employeeWissenId);
         return this.employeeSkillRepository.getEmployeeSkillByEmployee(employee);
     }
 

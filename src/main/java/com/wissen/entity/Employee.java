@@ -14,9 +14,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "emp_id")
-    int empId;
+    @Column(name = "wissen_id")
+    String employeeWissenId;
 
     @Column(name = "first_name")
     String firstName;

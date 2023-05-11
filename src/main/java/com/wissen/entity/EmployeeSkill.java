@@ -23,7 +23,7 @@ public class EmployeeSkill {
     int levels;
 
     @ManyToOne
-    @JoinColumn(name = "emp_id")
+    @JoinColumn(name = "wissen_id")
     Employee employee;
 
     @ManyToOne

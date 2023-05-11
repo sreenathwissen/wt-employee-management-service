@@ -15,7 +15,7 @@ import java.util.Date;
 public class EmployeeDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int emp_id;
+    String employee_wissen_id;
     String first_name;
     String gender;
     Date dob;
