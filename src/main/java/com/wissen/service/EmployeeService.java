@@ -43,4 +43,11 @@ public interface EmployeeService {
      * @return employee
      */
     public Employee getEmployee(String employeeWissenId);
+
+    /**
+     * @author Vishal Tomar
+     * Method to search employee.
+     * @return List of search employee.
+     */
+    public List<Employee> getEmployeesBySearchString(String searchString);
 }

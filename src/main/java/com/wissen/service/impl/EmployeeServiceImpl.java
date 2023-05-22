@@ -101,7 +101,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Set<EmployeeSearchDTO> searchEmployee(String searchString) {
-        List<Employee> employees = this.employeeRepository.searchEmployee(searchString);
+        List<Employee> employees = getEmployeesBySearchString(searchString);
         return employees.parallelStream().map(employee -> {
             return EmployeeSearchDTO.builder()
                 .name(employee.getFirstName() + " " + employee.getLastName())
@@ -119,4 +119,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return this.employeeRepository.findById(employeeWissenId).get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Employee> getEmployeesBySearchString(String searchString) {
+        return this.employeeRepository.searchEmployee(searchString);
+    }
 }
